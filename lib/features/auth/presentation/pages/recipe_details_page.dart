@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/recipe.dart';
-
+import '../../../recipes/data/models/recipe_model.dart';
 class RecipeDetailScreen extends StatelessWidget {
   final Recipe recipe;
   const RecipeDetailScreen({super.key, required this.recipe});
