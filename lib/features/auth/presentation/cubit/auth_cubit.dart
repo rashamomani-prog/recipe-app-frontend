@@ -11,20 +11,37 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> login(String email, String password) async {
     emit(AuthLoading());
-
     try {
       final user = await authDataSource.login(email, password);
 
-      await localService.saveToken(user.token);
-      await localService.saveRole(user.role);
+      await localService.saveToken(user.token ?? "");
+      await localService.saveRole(user.role ?? "user");
 
-      if (user.role == 'admin') {
-        print("أهلاً بك أيها المدير!");
-      }
       emit(AuthSuccess(user));
+    } catch (e) {
+      emit(AuthError("The email or password is incorrect."));
+    }
+  }
+
+  Future<void> register({
+    required String name,
+    required String email,
+    required String password,
+    required dynamic uroleser,
+  }) async {
+    emit(AuthLoading());
+
+    try {
+      final user = await authDataSource.register(name, email, password);
+      await localService.saveToken(user.token ?? "");
+      await localService.saveRole(uroleser?.toString() ?? "user");
+
+      emit(AuthSuccess(user));
+      print("User registered successfully: ${user.name}");
 
     } catch (e) {
-      emit(AuthError("الإيميل أو كلمة المرور غلط أو مشكلة في السيرفر"));
+      emit(AuthError("Failed to register. Please check your connection."));
+      print("Registration error: $e");
     }
   }
 }

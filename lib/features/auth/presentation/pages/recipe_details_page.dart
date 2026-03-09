@@ -13,13 +13,13 @@ class RecipeDetailScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _sectionHeader("التصنيف"),
+            _sectionHeader("category"),
             Text(recipe.category, style: TextStyle(fontSize: 16)),
             Divider(height: 30),
-            _sectionHeader("المكونات"),
+            _sectionHeader("ingredients"),
             Text(recipe.ingredients, style: TextStyle(fontSize: 16)),
             Divider(height: 30),
-            _sectionHeader("طريقة التحضير"),
+            _sectionHeader("instructions"),
             Text(recipe.instructions, style: TextStyle(fontSize: 16)),
           ],
         ),

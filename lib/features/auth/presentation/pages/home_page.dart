@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
               },
             );
           }
-          return const Center(child: Text("جاري تحضير المطبخ..."));
+          return const Center(child: Text("The kitchen is being prepared..."));
         },
       ),
     );

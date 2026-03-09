@@ -1,28 +1,24 @@
 class UserModel {
+  final int id;
+  final String name;
   final String email;
-  final String token;
-  final String role; // هذا الحقل عشان نميز بين الـ Admin والـ User
+  final String? token;
+  final String? role;
 
   UserModel({
+    required this.id,
+    required this.name,
     required this.email,
-    required this.token,
-    required this.role,
+    this.token,
+    this.role,
   });
-
-  // تحويل البيانات القادمة من JSON (FastAPI) إلى كائن UserModel
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
       email: json['email'] ?? '',
-      token: json['access_token'] ?? '',
-      role: json['role'] ?? 'user',
+      token: json['token'],
+      role: json['role'],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'email': email,
-      'access_token': token,
-      'role': role,
-    };
   }
 }

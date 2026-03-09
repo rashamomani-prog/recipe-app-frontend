@@ -1,75 +1,109 @@
 import 'package:flutter/material.dart';
-import 'recipe_list_page.dart';
+
+import '../../../auth/presentation/pages/login_page.dart';
 
 class CategoriesPage extends StatelessWidget {
   const CategoriesPage({super.key});
 
-  final List<Map<String, dynamic>> categories = const [
-    {'name': 'أكل صحي', 'icon': Icons.favorite_rounded, 'color': Colors.green},
-    {'name': 'سلطات', 'icon': Icons.flatware_rounded, 'color': Colors.lightGreen},
-    {'name': 'وجبات رئيسية', 'icon': Icons.restaurant_rounded, 'color': Colors.orange},
-    {'name': 'عصائر', 'icon': Icons.local_drink_rounded, 'color': Colors.blue},
-    {'name': 'مقبلات', 'icon': Icons.fastfood_rounded, 'color': Colors.amber},
-    {'name': 'حلويات', 'icon': Icons.cake_rounded, 'color': Colors.pink},
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: const Color(0xFFFAF9F6),
       appBar: AppBar(
-        title: const Text("قائمة التصنيفات", style: TextStyle(fontWeight: FontWeight.bold)),
-        centerTitle: true,
+        backgroundColor: Colors.transparent,
         elevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-      ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(16),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 15,
-          mainAxisSpacing: 15,
-          childAspectRatio: 1.1,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black87, size: 20),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginPage()),
+            );
+          },
         ),
-        itemCount: categories.length,
-        itemBuilder: (context, index) {
-          final cat = categories[index];
-          return InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => RecipeListPage(
-                    categoryName: cat['name'],
-                    themeColor: cat['color'],
-                  ),
-                ),
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(color: cat['color'].withOpacity(0.1), blurRadius: 10, spreadRadius: 2)
-                ],
+        title: const Text(
+          "Menu Categories",
+          style: TextStyle(
+            color: Color(0xFF2D2D2D),
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        centerTitle: true,
+      ),
+      body: CustomScrollView(
+        slivers: [
+          SliverPadding(
+            padding: const EdgeInsets.all(25.0),
+            sliver: SliverGrid(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 20,
+                crossAxisSpacing: 20,
+                childAspectRatio: 0.9,
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor: cat['color'].withOpacity(0.2),
-                    child: Icon(cat['icon'], size: 30, color: cat['color']),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(cat['name'], style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                ],
-              ),
+              delegate: SliverChildListDelegate([
+                _buildProfessionalCard("Breakfast", Icons.coffee_outlined, const Color(0xFFFFFBEE)),
+                _buildProfessionalCard("Lunch", Icons.restaurant_outlined, const Color(0xFFFFEFFE)),
+                _buildProfessionalCard("Dinner", Icons.nightlight_outlined, const Color(0xFFF0F9FF)),
+                _buildProfessionalCard("Desserts", Icons.cake_outlined, const Color(0xFFF2FCE2)),
+                _buildProfessionalCard("Drinks", Icons.local_drink_outlined, const Color(0xFFFFF3E0)),
+                _buildProfessionalCard("Healthy", Icons.spa_outlined, const Color(0xFFE0F2F1)),
+              ]),
             ),
-          );
-        },
+          ),
+        ],
+      ),
+    );
+  }
+  Widget _buildProfessionalCard(String title, IconData icon, Color accentColor) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(20),
+          onTap: () {},
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                icon,
+                size: 40,
+                color: Colors.orange.shade300,
+              ),
+              const SizedBox(height: 15),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF4A4A4A),
+                  letterSpacing: 0.3,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                width: 20,
+                height: 2,
+                decoration: BoxDecoration(
+                  color: accentColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

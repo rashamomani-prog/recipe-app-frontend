@@ -2,8 +2,9 @@ import 'package:dio/dio.dart';
 
 class DioClient {
   final Dio _dio;
+  Dio get dio => _dio;
 
-  static const String baseUrl = "http://192.168.1.6:8000";
+  static const String baseUrl = "http://192.168.1.12:8000/register";
 
   DioClient()
       : _dio = Dio(
@@ -16,5 +17,4 @@ class DioClient {
     ),
   );
 
-  Dio get dio => _dio;
 }
