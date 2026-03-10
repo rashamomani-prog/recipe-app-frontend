@@ -1,110 +1,103 @@
 import 'package:flutter/material.dart';
+import 'recipe_list_page.dart';
 
-import '../../../auth/presentation/pages/login_page.dart';
+class CategoriesEntity {
+  final String title;
+  final IconData icon;
+  final Color accentColor;
+
+  CategoriesEntity({required this.title, required this.icon, required this.accentColor});
+}
 
 class CategoriesPage extends StatelessWidget {
-  const CategoriesPage({super.key});
+  CategoriesPage({super.key});
+  final List<CategoriesEntity> allCategories = [
+    CategoriesEntity(title: 'Breakfast', icon: Icons.coffee_outlined, accentColor: const Color(0xFFFFFBEE)),
+    CategoriesEntity(title: 'Lunch', icon: Icons.restaurant_outlined, accentColor: const Color(0xFFFFEFFE)),
+    CategoriesEntity(title: 'Dinner', icon: Icons.nightlight_outlined, accentColor: const Color(0xFFF0F9FF)),
+    CategoriesEntity(title: 'Desserts', icon: Icons.cake_outlined, accentColor: const Color(0xFFF2FCE2)),
+    CategoriesEntity(title: 'Drinks', icon: Icons.local_drink_outlined, accentColor: const Color(0xFFFFF3E0)),
+    CategoriesEntity(title: 'Healthy', icon: Icons.spa_outlined, accentColor: const Color(0xFFE0F2F1)),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFAF9F6),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        title: const Text("All Categories", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black87, size: 20),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginPage()),
-            );
-          },
-        ),
-        title: const Text(
-          "Menu Categories",
-          style: TextStyle(
-            color: Color(0xFF2D2D2D),
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
-      body: CustomScrollView(
-        slivers: [
-          SliverPadding(
-            padding: const EdgeInsets.all(25.0),
-            sliver: SliverGrid(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 20,
-                crossAxisSpacing: 20,
-                childAspectRatio: 0.9,
-              ),
-              delegate: SliverChildListDelegate([
-                _buildProfessionalCard("Breakfast", Icons.coffee_outlined, const Color(0xFFFFFBEE)),
-                _buildProfessionalCard("Lunch", Icons.restaurant_outlined, const Color(0xFFFFEFFE)),
-                _buildProfessionalCard("Dinner", Icons.nightlight_outlined, const Color(0xFFF0F9FF)),
-                _buildProfessionalCard("Desserts", Icons.cake_outlined, const Color(0xFFF2FCE2)),
-                _buildProfessionalCard("Drinks", Icons.local_drink_outlined, const Color(0xFFFFF3E0)),
-                _buildProfessionalCard("Healthy", Icons.spa_outlined, const Color(0xFFE0F2F1)),
-              ]),
-            ),
+      body: GridView.builder(
+        padding: const EdgeInsets.all(20),
+        physics: const BouncingScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+          childAspectRatio: 0.85,
+        ),
+        itemCount: allCategories.length,
+        itemBuilder: (context, index) {
+          final category = allCategories[index];
+
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RecipeListPage(
+                    categoryName: category.title,
+                    themeColor: _getIconColor(category.title),
+                  ),
+                ),
+              );
+            },
+            borderRadius: BorderRadius.circular(25),
+            child: _buildCategoryCard(category),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildCategoryCard(CategoriesEntity category) {
+    Color iconColor = _getIconColor(category.title);
+
+    return Container(
+      decoration: BoxDecoration(
+        color: category.accentColor,
+        borderRadius: BorderRadius.circular(25),
+        border: Border.all(color: iconColor.withOpacity(0.1), width: 1),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(15),
+            decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+            child: Icon(category.icon, color: iconColor, size: 35),
+          ),
+          const SizedBox(height: 15),
+          Text(
+            category.title,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
           ),
         ],
       ),
     );
   }
-  Widget _buildProfessionalCard(String title, IconData icon, Color accentColor) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.03),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(20),
-          onTap: () {},
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                size: 40,
-                color: Colors.orange.shade300,
-              ),
-              const SizedBox(height: 15),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF4A4A4A),
-                  letterSpacing: 0.3,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Container(
-                width: 20,
-                height: 2,
-                decoration: BoxDecoration(
-                  color: accentColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+  Color _getIconColor(String title) {
+    switch (title) {
+      case 'Breakfast': return Colors.orange;
+      case 'Lunch': return Colors.pink;
+      case 'Dinner': return Colors.blue;
+      case 'Desserts': return Colors.green;
+      case 'Drinks': return Colors.brown;
+      case 'Healthy': return Colors.teal;
+      default: return Colors.orange;
+    }
   }
 }

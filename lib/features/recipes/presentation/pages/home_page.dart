@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'categories_page.dart';
+import 'recipe_list_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -7,101 +8,145 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFFAF9F6),
       appBar: AppBar(
-        title: const Text("Rashify 🥗", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+        title: const Text(
+            "Rashify 🥗",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [
           IconButton(
             icon: const Icon(Icons.person_outline, color: Colors.black),
             onPressed: () {
-              // هون ممكن نحط صفحة البروفايل لاحقاً
             },
           ),
         ],
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // نص ترحيبي
               const Text(
-                "أهلاً بكِ في مطبخك،",
-                style: TextStyle(fontSize: 18, color: Colors.grey),
+                "Welcome back,",
+                style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
               const Text(
-                "ماذا نطبخ اليوم؟ 👨‍🍳",
-                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                "What to cook today? 👨‍🍳",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 25),
 
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(colors: [Colors.orange, Colors.deepOrangeAccent]),
-                  borderRadius: BorderRadius.circular(20),
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFFFFAB40), Color(0xFFFF9100)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(25),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.orange.withOpacity(0.3),
+                      blurRadius: 12,
+                      offset: const Offset(0, 6),
+                    )
+                  ],
                 ),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("وصفة اليوم المميزة", style: TextStyle(color: Colors.white70)),
+                    Text("Featured Recipe", style: TextStyle(color: Colors.white70, fontSize: 14)),
                     SizedBox(height: 5),
-                    Text("سلطة الكينوا الصحية", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+                    Text("Healthy Quinoa Salad",
+                        style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
                   ],
                 ),
               ),
 
               const SizedBox(height: 30),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text("اكتشفي الأقسام", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  const Text("Explore Categories",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CategoriesPage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CategoriesPage()));
                     },
-                    child: const Text("عرض الكل"),
+                    child: const Text("View All", style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold)),
                   )
                 ],
               ),
 
               const SizedBox(height: 10),
+
               SizedBox(
                 height: 120,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
+                  physics: const BouncingScrollPhysics(),
                   children: [
-                    _buildQuickCategory(Icons.apple, "صحي", Colors.green, context),
-                    _buildQuickCategory(Icons.cake, "حلويات", Colors.pink, context),
-                    _buildQuickCategory(Icons.local_drink, "عصائر", Colors.blue, context),
+                    _buildQuickCategory(context, Icons.spa_outlined, "Healthy", const Color(0xFFE2F3E9), Colors.green),
+                    _buildQuickCategory(context, Icons.cake_outlined, "Desserts", const Color(0xFFFCE4EC), Colors.pink),
+                    _buildQuickCategory(context, Icons.coffee_outlined, "Breakfast", const Color(0xFFFFF3E0), Colors.orange),
+                    _buildQuickCategory(context, Icons.local_drink_outlined, "Drinks", const Color(0xFFE1F5FE), Colors.blue),
                   ],
                 ),
               ),
+
+              const SizedBox(height: 20),
+              // يمكنك إضافة قسم "وصفات مقترحة" هنا لاحقاً
             ],
           ),
         ),
       ),
     );
   }
-  Widget _buildQuickCategory(IconData icon, String label, Color color, BuildContext context) {
-    return Container(
-      width: 100,
-      margin: const EdgeInsets.only(left: 15),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: color, size: 30),
-          const SizedBox(height: 8),
-          Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
-        ],
+  Widget _buildQuickCategory(BuildContext context, IconData icon, String label, Color bgColor, Color iconColor) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 15),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RecipeListPage(
+                categoryName: label,
+                themeColor: iconColor,
+              ),
+            ),
+          );
+        },
+        child: Column(
+          children: [
+            Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                color: bgColor,
+                borderRadius: BorderRadius.circular(22),
+              ),
+              child: Icon(icon, color: iconColor, size: 28),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              label,
+              style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                  fontSize: 13
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

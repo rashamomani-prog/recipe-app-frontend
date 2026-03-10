@@ -36,7 +36,7 @@ class RashifyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
           useMaterial3: true,
         ),
-        home: isLoggedIn ? const CategoriesPage() : const LoginPage(),
+        home: isLoggedIn ? CategoriesPage() : const LoginPage(),
       ),
     );
   }

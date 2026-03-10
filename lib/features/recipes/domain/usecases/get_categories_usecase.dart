@@ -1,10 +1,10 @@
 import '../entities/category_entity.dart';
 import '../repositories/category_repository.dart';
 
-class GetCategoriesUseCase {
+class GetCategories {
   final CategoryRepository repository;
 
-  GetCategoriesUseCase(this.repository);
+  GetCategories(this.repository);
 
   Future<List<CategoryEntity>> call() async {
     return await repository.getCategories();
