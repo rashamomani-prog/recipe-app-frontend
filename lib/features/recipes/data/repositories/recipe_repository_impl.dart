@@ -3,7 +3,7 @@ import '../../domain/entities/recipe_entity.dart';
 import '../../domain/repositories/recipe_repository.dart';
 import '../datasources/recipe_local_data_source.dart';
 import 'package:flutter/material.dart';
-
+import '../../data/models/recipe_model.dart';
 class RecipeRepositoryImpl implements RecipeRepository {
   final RecipeLocalDataSource localDataSource;
 
