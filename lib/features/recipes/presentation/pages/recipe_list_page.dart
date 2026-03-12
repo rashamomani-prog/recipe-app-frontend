@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../data/datasources/recipe_local_data_source.dart';
 import '../../data/repositories/recipe_repository_impl.dart';
 import '../../../auth/presentation/pages/recipe_details_page.dart';
+import '../../../auth/presentation/pages/login_page.dart';
 import '../../../recipes/data/models/recipe_model.dart';
 import '../../domain/repositories/recipe_repository.dart';
 
@@ -30,6 +30,18 @@ class _RecipeListPageState extends State<RecipeListPage> {
         backgroundColor: Colors.white,
         elevation: 0,
         iconTheme: IconThemeData(color: widget.themeColor),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout, color: widget.themeColor),
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+                    (route) => false,
+              );
+            },
+          ),
+        ],
       ),
       body: filteredRecipes.isEmpty
           ? _buildEmptyState()
@@ -55,8 +67,7 @@ class _RecipeListPageState extends State<RecipeListPage> {
           BoxShadow(
               color: Colors.black.withOpacity(0.04),
               blurRadius: 15,
-              offset: const Offset(0, 5)
-          )
+              offset: const Offset(0, 5))
         ],
       ),
       child: Column(
@@ -68,7 +79,8 @@ class _RecipeListPageState extends State<RecipeListPage> {
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => RecipeDetailsPage(recipe: recipe, themeColor: widget.themeColor),
+                    builder: (context) =>
+                        RecipeDetailsPage(recipe: recipe, themeColor: widget.themeColor),
                   ),
                 ),
                 child: ClipRRect(
