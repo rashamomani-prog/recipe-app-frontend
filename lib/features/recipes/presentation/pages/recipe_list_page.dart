@@ -25,19 +25,42 @@ class _RecipeListPageState extends State<RecipeListPage> {
     return Scaffold(
       backgroundColor: const Color(0xFFFAF9F6),
       appBar: AppBar(
-        title: Text(widget.categoryName,
-            style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold)),
+        title: Text(
+          widget.categoryName,
+          style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         iconTheme: IconThemeData(color: widget.themeColor),
         actions: [
+          // Logout button مع تأكيد
           IconButton(
             icon: Icon(Icons.logout, color: widget.themeColor),
             onPressed: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-                    (route) => false,
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text("Logout"),
+                    content: const Text("Are you sure you want to logout?"),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("Cancel"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: (context) => LoginPage()),
+                                (route) => false,
+                          );
+                        },
+                        child: const Text("Logout"),
+                      ),
+                    ],
+                  );
+                },
               );
             },
           ),
@@ -65,9 +88,10 @@ class _RecipeListPageState extends State<RecipeListPage> {
         borderRadius: BorderRadius.circular(25),
         boxShadow: [
           BoxShadow(
-              color: Colors.black.withOpacity(0.04),
-              blurRadius: 15,
-              offset: const Offset(0, 5))
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          )
         ],
       ),
       child: Column(
@@ -75,24 +99,31 @@ class _RecipeListPageState extends State<RecipeListPage> {
         children: [
           Stack(
             children: [
+              // الصورة مع Hero animation
               GestureDetector(
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        RecipeDetailsPage(recipe: recipe, themeColor: widget.themeColor),
+                    builder: (context) => RecipeDetailsPage(
+                      recipe: recipe,
+                      themeColor: widget.themeColor,
+                    ),
                   ),
                 ),
                 child: ClipRRect(
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
-                  child: Image.asset(
-                    recipe.imagePath,
-                    height: 200,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+                  child: Hero(
+                    tag: recipe.imagePath, // tag فريد لكل وصفة
+                    child: Image.asset(
+                      recipe.imagePath,
+                      height: 200,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
+              // أيقونة الفافوريت
               Positioned(
                 top: 15,
                 right: 15,
@@ -123,7 +154,10 @@ class _RecipeListPageState extends State<RecipeListPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(recipe.title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                Text(
+                  recipe.title,
+                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
                 const SizedBox(height: 12),
                 Row(
                   children: [
@@ -157,7 +191,7 @@ class _RecipeListPageState extends State<RecipeListPage> {
         children: [
           Icon(Icons.restaurant_menu_outlined, size: 80, color: Colors.grey[300]),
           const SizedBox(height: 15),
-          Text("No recipes here yet!", style: const TextStyle(color: Colors.grey, fontSize: 16)),
+          const Text("No recipes here yet!", style: TextStyle(color: Colors.grey, fontSize: 16)),
         ],
       ),
     );

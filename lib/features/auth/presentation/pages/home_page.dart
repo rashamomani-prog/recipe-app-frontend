@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFAF9F6), // Off-white background
+      backgroundColor: const Color(0xFFFAF9F6),
       appBar: AppBar(
         title: const Text(
             "Rashify Pro 👩‍🍳",
@@ -32,7 +32,6 @@ class HomePage extends StatelessWidget {
           } else if (state is RecipeError) {
             return Center(child: Text(state.message, style: const TextStyle(color: Colors.red)));
           } else if (state is RecipeLoaded) {
-            // حل مشكلة الـ Getter: استخدمنا result بدل recipes
             final items = state.result;
 
             if (items.isEmpty) {
@@ -43,7 +42,6 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10),
               itemCount: items.length,
               itemBuilder: (context, index) {
-                // بنعرف العنصر كـ CategoryEntity عشان نوصل لخصائصه
                 final category = items[index] as CategoryEntity;
 
                 return Container(
@@ -64,7 +62,7 @@ class HomePage extends StatelessWidget {
                     leading: Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: category.accentColor, // اللون الباستيل اللي بالـ Entity
+                        color: category.accentColor,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Icon(category.icon, color: Colors.orange.shade400, size: 28),
@@ -76,7 +74,6 @@ class HomePage extends StatelessWidget {
                     subtitle: const Text("Tap to see recipes", style: TextStyle(fontSize: 12)),
                     trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 16, color: Colors.grey),
                     onTap: () {
-                      // هون رح نربط الانتقال للوصفات بناءً على category.id
                     },
                   ),
                 );
