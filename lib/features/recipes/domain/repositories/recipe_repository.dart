@@ -1,5 +1,4 @@
-import 'package:rashify_app/features/recipes/data/models/recipe_model.dart' show Recipe;
-
+import 'package:flutter/material.dart';
 import '../../data/models/recipe_model.dart';
 import '../entities/category_entity.dart';
 import '../entities/recipe_entity.dart';
@@ -93,7 +92,7 @@ abstract class RecipeRepository {
       instructions: '1. Whisk eggs, milk, cinnamon, and vanilla in a shallow bowl. 2. Dip bread slices into the mixture until soaked. 3. Fry in a buttered pan until golden on both sides. Serve with syrup.',
       calories: 410,
       time: 12,
-      imagePath: 'assets/images/french_toast.jpg',
+      imagePath: 'assets/images/french_toast.png',
       isFavorite: false,
     ),
     Recipe(
@@ -115,7 +114,7 @@ abstract class RecipeRepository {
       instructions: '1. Whisk eggs with salt and pepper. 2. Sauté peppers and onions in butter, then pour in eggs. 3. When set, sprinkle cheese on one side, fold over, and cook until melted.',
       calories: 310,
       time: 8,
-      imagePath: 'assets/images/omelette.jpg',
+      imagePath: 'assets/images/omelette.png',
       isFavorite: false,
     ),
     Recipe(
@@ -126,7 +125,7 @@ abstract class RecipeRepository {
       instructions: '1. Toast waffles until crispy. 2. Top with a dollop of whipped cream and fresh fruits. 3. Drizzle with maple syrup and serve.',
       calories: 420,
       time: 15,
-      imagePath: 'assets/images/waffles.jpg',
+      imagePath: 'assets/images/waffles.png',
       isFavorite: false,
     ),
     // ==========================================
@@ -140,7 +139,7 @@ abstract class RecipeRepository {
       instructions: '1. Cook lamb in water with spices until half-done. 2. Blend jameed and add to the meat broth; simmer until tender. 3. Lay shrak bread, top with rice and meat, then pour sauce and garnish with nuts.',
       calories: 950,
       time: 120,
-      imagePath: 'assets/images/mansaf.jpg',
+      imagePath: 'assets/images/mansaf.png',
       isFavorite: false,
     ),
     Recipe(
@@ -151,7 +150,7 @@ abstract class RecipeRepository {
       instructions: '1. Fry eggplant, cauliflower, and potatoes. 2. Cook chicken with spices. 3. Layer veggies and chicken in a pot, cover with rice and broth. Cook then flip upside down.',
       calories: 620,
       time: 70,
-      imagePath: 'assets/images/maqluba.jpg',
+      imagePath: 'assets/images/maqluba.png',
       isFavorite: false,
     ),
     Recipe(
@@ -162,7 +161,7 @@ abstract class RecipeRepository {
       instructions: '1. Sauté onions and chicken with spices and tomato puree. 2. Add water and cook chicken. 3. Add rice to the broth and cook until fluffy. Serve with roasted nuts.',
       calories: 580,
       time: 55,
-      imagePath: 'assets/images/kabsa.jpg',
+      imagePath: 'assets/images/kabsa.png',
       isFavorite: false,
     ),
     Recipe(
@@ -173,7 +172,7 @@ abstract class RecipeRepository {
       instructions: '1. Core the veggies. 2. Mix rice, meat, and spices; stuff the veggies. 3. Simmer in tomato sauce with garlic and mint until tender.',
       calories: 450,
       time: 90,
-      imagePath: 'assets/images/mahshi.jpg',
+      imagePath: 'assets/images/mahshi.png',
       isFavorite: false,
     ),
     Recipe(
@@ -184,7 +183,7 @@ abstract class RecipeRepository {
       instructions: '1. Mix rice with herbs and spices. 2. Roll the leaves tightly. 3. Layer in a pot with lemon and oil; slow cook for 3 hours.',
       calories: 480,
       time: 180,
-      imagePath: 'assets/images/vine_leaves.jpg',
+      imagePath: 'assets/images/vine_leaves.png',
       isFavorite: false,
     ),
     Recipe(
@@ -195,7 +194,7 @@ abstract class RecipeRepository {
       instructions: '1. Sauté onions in plenty of olive oil and sumac. 2. Roast chicken separately. 3. Dip bread in oil, layer with onions and chicken, then bake for 5 mins.',
       calories: 780,
       time: 60,
-      imagePath: 'assets/images/musakhan.jpg',
+      imagePath: 'assets/images/musakhan.png',
       isFavorite: false,
     ),
     Recipe(
@@ -206,7 +205,7 @@ abstract class RecipeRepository {
       instructions: '1. Boil chicken for broth. 2. Cook molokhia in broth. 3. Make "Taklia" by frying garlic and coriander, pour over molokhia. Serve with rice.',
       calories: 420,
       time: 45,
-      imagePath: 'assets/images/molokhia.jpg',
+      imagePath: 'assets/images/molokhia.png',
       isFavorite: false,
     ),
     Recipe(
@@ -217,7 +216,7 @@ abstract class RecipeRepository {
       instructions: '1. Boil lentils until half-done. 2. Add rice and cumin; cook together. 3. Top with crispy deep-fried onion slices.',
       calories: 380,
       time: 40,
-      imagePath: 'assets/images/mujadara.jpg',
+      imagePath: 'assets/images/mujadara.png',
       isFavorite: false,
     ),
     Recipe(
@@ -228,7 +227,7 @@ abstract class RecipeRepository {
       instructions: '1. Layer bread and chickpeas. 2. Add shredded chicken and broth. 3. Cover with yogurt-tahini mix and garnish with sizzling nuts.',
       calories: 510,
       time: 30,
-      imagePath: 'assets/images/fatteh_chicken.jpg',
+      imagePath: 'assets/images/fatteh_chicken.png',
       isFavorite: false,
     ),
     Recipe(
@@ -239,11 +238,9 @@ abstract class RecipeRepository {
       instructions: '1. Marinate chicken and grill on skewers. 2. Cook yellow rice with turmeric. 3. Serve grilled chicken over rice with garlic sauce.',
       calories: 490,
       time: 40,
-      imagePath: 'assets/images/shish_tawook.jpg',
+      imagePath: 'assets/images/shish_tawook.png',
       isFavorite: false,
     ),
-
-    // --- الغداء الغربي ---
     Recipe(
       id: 26,
       title: 'Pasta Bolognese 🍝',
@@ -252,7 +249,7 @@ abstract class RecipeRepository {
       instructions: '1. Sauté meat with onions and garlic. 2. Add tomato sauce and herbs; simmer. 3. Mix with boiled pasta and top with cheese.',
       calories: 520,
       time: 35,
-      imagePath: 'assets/images/bolognese.jpg',
+      imagePath: 'assets/images/bolognese.png',
       isFavorite: false,
     ),
     Recipe(
@@ -263,7 +260,7 @@ abstract class RecipeRepository {
       instructions: '1. Layer pasta, meat sauce, and bechamel in a dish. 2. Repeat layers. 3. Top with cheese and bake for 45 mins.',
       calories: 680,
       time: 60,
-      imagePath: 'assets/images/lasagna.jpg',
+      imagePath: 'assets/images/lasagna.png',
       isFavorite: false,
     ),
     Recipe(
@@ -274,7 +271,7 @@ abstract class RecipeRepository {
       instructions: '1. Boil pasta. 2. Melt butter with garlic, add cream and cheese until thick. 3. Toss pasta in the sauce until coated.',
       calories: 720,
       time: 20,
-      imagePath: 'assets/images/alfredo.jpg',
+      imagePath: 'assets/images/alfredo.png',
       isFavorite: false,
     ),
     Recipe(
@@ -285,7 +282,7 @@ abstract class RecipeRepository {
       instructions: '1. Sear steak in a hot pan with butter and rosemary. 2. Roast or mash potatoes. 3. Serve steak with a side of potatoes.',
       calories: 650,
       time: 30,
-      imagePath: 'assets/images/steak.jpg',
+      imagePath: 'assets/images/steak.png',
       isFavorite: false,
     ),
     Recipe(
@@ -296,18 +293,18 @@ abstract class RecipeRepository {
       instructions: '1. Grill the beef patty. 2. Toast the bun. 3. Assemble with cheese, veggies, and sauce.',
       calories: 710,
       time: 20,
-      imagePath: 'assets/images/burger.jpg',
+      imagePath: 'assets/images/burger.png',
       isFavorite: false,
     ),
     Recipe(
       id: 31,
-      title: 'Homemade Pizza 🍕',
+      title: 'Pizza 🍕',
       category: 'Lunch',
       ingredients: 'Pizza dough, Tomato sauce, Mozzarella, Pepperoni, Basil',
       instructions: '1. Roll the dough. 2. Spread sauce and toppings. 3. Bake at high heat for 10-15 mins.',
       calories: 450,
       time: 40,
-      imagePath: 'assets/images/pizza.jpg',
+      imagePath: 'assets/images/pizza.png',
       isFavorite: false,
     ),
     Recipe(
@@ -318,7 +315,7 @@ abstract class RecipeRepository {
       instructions: '1. Fry the breaded chicken. 2. Top with sauce and cheese; bake until melted. 3. Serve with a side of spaghetti.',
       calories: 610,
       time: 45,
-      imagePath: 'assets/images/chicken_parm.jpg',
+      imagePath: 'assets/images/chicken_parm.png',
       isFavorite: false,
     ),
     Recipe(
@@ -329,7 +326,7 @@ abstract class RecipeRepository {
       instructions: '1. Make a cheese sauce with butter, flour, and milk. 2. Mix with boiled macaroni. 3. Top with breadcrumbs and bake.',
       calories: 550,
       time: 30,
-      imagePath: 'assets/images/mac_cheese.jpg',
+      imagePath: 'assets/images/mac_cheese.png',
       isFavorite: false,
     ),
     Recipe(
@@ -340,7 +337,7 @@ abstract class RecipeRepository {
       instructions: '1. Grill chicken strips. 2. Toss lettuce with dressing and croutons. 3. Top with chicken and cheese shavings.',
       calories: 380,
       time: 20,
-      imagePath: 'assets/images/caesar_lunch.jpg',
+      imagePath: 'assets/images/caesar_lunch.png',
       isFavorite: false,
     ),
     Recipe(
@@ -351,21 +348,19 @@ abstract class RecipeRepository {
       instructions: '1. Boil pasta. 2. Mix with fresh pesto and a splash of pasta water. 3. Garnish with nuts and cheese.',
       calories: 490,
       time: 15,
-      imagePath: 'assets/images/pesto_pasta.jpg',
+      imagePath: 'assets/images/pesto_pasta.png',
       isFavorite: false,
     ),
-    // ==========================================
-    // 3. DINNER (العشاء الآسيوي والغربي - 19 وصفة)
-    // ==========================================
-
-    // --- العشاء الآسيوي (9 وصفات) ---
     Recipe(
       id: 36,
       title: 'Vegetable Noodles 🍜',
       category: 'Dinner',
       ingredients: 'Egg noodles, Cabbage, Carrots, Soy sauce, Ginger, Garlic, Sesame oil',
       instructions: '1. Boil noodles. 2. Stir-fry garlic, ginger, and veggies in sesame oil. 3. Toss noodles with soy sauce on high heat.',
-      calories: 380, time: 15, imagePath: 'assets/images/veg_noodles.jpg', isFavorite: false,
+      calories: 380,
+      time: 15,
+      imagePath: 'assets/images/veg_noodles.png',
+      isFavorite: false,
     ),
     Recipe(
       id: 37,
@@ -373,7 +368,10 @@ abstract class RecipeRepository {
       category: 'Dinner',
       ingredients: 'Chicken breast, Broccoli, Bell peppers, Soy sauce, Honey, Cornstarch',
       instructions: '1. Sauté chicken strips. 2. Add veggies and stir-fry. 3. Pour honey-soy sauce mixture and simmer until thickened.',
-      calories: 420, time: 20, imagePath: 'assets/images/chicken_stirfry.jpg', isFavorite: false,
+      calories: 420,
+      time: 20,
+      imagePath: 'assets/images/chicken_stirfry.png',
+      isFavorite: false,
     ),
     Recipe(
       id: 38,
@@ -381,7 +379,10 @@ abstract class RecipeRepository {
       category: 'Dinner',
       ingredients: 'Sushi rice, Nori, Salmon/Tuna, Avocado, Cucumber, Rice vinegar',
       instructions: '1. Spread rice on nori. 2. Place fish and veggies. 3. Roll tightly and slice into bite-sized pieces.',
-      calories: 320, time: 45, imagePath: 'assets/images/sushi.jpg', isFavorite: false,
+      calories: 320,
+      time: 45,
+      imagePath: 'assets/images/sushi.png',
+      isFavorite: false,
     ),
     Recipe(
       id: 39,
@@ -389,7 +390,10 @@ abstract class RecipeRepository {
       category: 'Dinner',
       ingredients: 'Ramen noodles, Broth, Boiled egg, Seaweed, Scallions, Soy sauce',
       instructions: '1. Prepare savory broth. 2. Cook noodles. 3. Combine in a bowl and top with egg, seaweed, and onions.',
-      calories: 550, time: 30, imagePath: 'assets/images/ramen.jpg', isFavorite: false,
+      calories: 550,
+      time: 30,
+      imagePath: 'assets/images/ramen.png',
+      isFavorite: false,
     ),
     Recipe(
       id: 40,
@@ -397,7 +401,10 @@ abstract class RecipeRepository {
       category: 'Dinner',
       ingredients: 'Rice noodles, Shrimp or Chicken, Bean sprouts, Peanuts, Lime, Pad Thai sauce',
       instructions: '1. Soak noodles. 2. Stir-fry protein and sprouts. 3. Toss with noodles and sauce; garnish with crushed peanuts.',
-      calories: 480, time: 25, imagePath: 'assets/images/pad_thai.jpg', isFavorite: false,
+      calories: 480,
+      time: 25,
+      imagePath: 'assets/images/pad_thai.png',
+      isFavorite: false,
     ),
     Recipe(
       id: 41,
@@ -405,7 +412,10 @@ abstract class RecipeRepository {
       category: 'Dinner',
       ingredients: 'Cooked rice, Peas, Carrots, Eggs, Soy sauce, Green onions',
       instructions: '1. Scramble eggs in a pan. 2. Sauté veggies. 3. Add rice and soy sauce, stir-fry on high heat.',
-      calories: 350, time: 15, imagePath: 'assets/images/fried_rice.jpg', isFavorite: false,
+      calories: 350,
+      time: 15,
+      imagePath: 'assets/images/fried_rice.png',
+      isFavorite: false,
     ),
     Recipe(
       id: 42,
@@ -413,7 +423,10 @@ abstract class RecipeRepository {
       category: 'Dinner',
       ingredients: 'Crispy chicken, Pineapple, Peppers, Vinegar, Ketchup, Sugar',
       instructions: '1. Fry breaded chicken. 2. Make sauce with vinegar and ketchup. 3. Toss chicken and pineapple in the sauce.',
-      calories: 580, time: 40, imagePath: 'assets/images/sweet_sour.jpg', isFavorite: false,
+      calories: 580,
+      time: 40,
+      imagePath: 'assets/images/sweet_sour.png',
+      isFavorite: false,
     ),
     Recipe(
       id: 43,
@@ -421,7 +434,10 @@ abstract class RecipeRepository {
       category: 'Dinner',
       ingredients: 'Chicken thighs, Teriyaki sauce, Garlic, Ginger, Sesame seeds',
       instructions: '1. Grill chicken until golden. 2. Pour teriyaki sauce and simmer. 3. Garnish with sesame seeds and serve with rice.',
-      calories: 440, time: 25, imagePath: 'assets/images/teriyaki.jpg', isFavorite: false,
+      calories: 440,
+      time: 25,
+      imagePath: 'assets/images/teriyaki.png',
+      isFavorite: false,
     ),
     Recipe(
       id: 44,
@@ -429,17 +445,20 @@ abstract class RecipeRepository {
       category: 'Dinner',
       ingredients: 'Dumpling wrappers, Minced meat/veggies, Cabbage, Soy-ginger dip',
       instructions: '1. Fill wrappers with meat mix. 2. Pleat the edges to seal. 3. Steam for 10-12 minutes and serve with dip.',
-      calories: 290, time: 40, imagePath: 'assets/images/dumplings.jpg', isFavorite: false,
+      calories: 290,
+      time: 40,
+      imagePath: 'assets/images/dumplings.png',
+      isFavorite: false,
     ),
-
-    // --- العشاء الغربي (10 وصفات) ---
     Recipe(
       id: 45,
       title: 'Beef Burger 🍔',
       category: 'Dinner',
       ingredients: 'Beef patty, Bun, Cheese, Lettuce, Tomato, Burger sauce',
       instructions: '1. Grill the patty. 2. Toast the bun. 3. Assemble with cheese, veggies, and sauce.',
-      calories: 710, time: 20, imagePath: 'assets/images/burger.jpg', isFavorite: false,
+      calories: 710,
+      time: 20, imagePath: 'assets/images/burger.png',
+      isFavorite: false,
     ),
     Recipe(
       id: 46,
@@ -447,7 +466,10 @@ abstract class RecipeRepository {
       category: 'Dinner',
       ingredients: 'Pizza dough, Tomato sauce, Mozzarella, Basil, Olive oil',
       instructions: '1. Roll dough and add sauce. 2. Add cheese and bake at 220°C for 10 mins. 3. Top with fresh basil.',
-      calories: 450, time: 40, imagePath: 'assets/images/pizza.jpg', isFavorite: false,
+      calories: 450,
+      time: 40,
+      imagePath: 'assets/images/pizza_margherita.png',
+      isFavorite: false,
     ),
     Recipe(
       id: 47,
@@ -455,7 +477,10 @@ abstract class RecipeRepository {
       category: 'Dinner',
       ingredients: 'Chicken breast, Toasted bread, Mayo, Lettuce, Pickles',
       instructions: '1. Grill seasoned chicken. 2. Spread mayo on bread. 3. Assemble sandwich with chicken and lettuce.',
-      calories: 450, time: 15, imagePath: 'assets/images/chicken_sandwich.jpg', isFavorite: false,
+      calories: 450,
+      time: 15,
+      imagePath: 'assets/images/chicken_sandwich.png',
+      isFavorite: false,
     ),
     Recipe(
       id: 48,
@@ -463,7 +488,10 @@ abstract class RecipeRepository {
       category: 'Dinner',
       ingredients: 'Tortillas, Shredded chicken, Cheddar cheese, Peppers',
       instructions: '1. Sauté chicken and peppers. 2. Fill tortilla with chicken and cheese. 3. Grill on a pan until cheese melts.',
-      calories: 480, time: 15, imagePath: 'assets/images/quesadilla.jpg', isFavorite: false,
+      calories: 480,
+      time: 15,
+      imagePath: 'assets/images/quesadilla.png',
+      isFavorite: false,
     ),
     Recipe(
       id: 49,
@@ -471,7 +499,10 @@ abstract class RecipeRepository {
       category: 'Dinner',
       ingredients: 'Taco shells, Minced beef, Taco spices, Salsa, Cheese',
       instructions: '1. Cook beef with spices. 2. Fill shells with meat. 3. Top with salsa, cheese, and lettuce.',
-      calories: 410, time: 20, imagePath: 'assets/images/tacos.jpg', isFavorite: false,
+      calories: 410,
+      time: 20,
+      imagePath: 'assets/images/tacos.png',
+      isFavorite: false,
     ),
     Recipe(
       id: 50,
@@ -479,7 +510,10 @@ abstract class RecipeRepository {
       category: 'Dinner',
       ingredients: 'Sausage, Bun, Mustard, Ketchup, Onions',
       instructions: '1. Boil or grill the sausage. 2. Place in bun. 3. Add toppings of your choice.',
-      calories: 350, time: 10, imagePath: 'assets/images/hotdog.jpg', isFavorite: false,
+      calories: 350,
+      time: 10,
+      imagePath: 'assets/images/hotdog.png',
+      isFavorite: false,
     ),
     Recipe(
       id: 51,
@@ -487,7 +521,10 @@ abstract class RecipeRepository {
       category: 'Dinner',
       ingredients: 'Pasta, Olive oil, Garlic, Chili flakes, Parsley',
       instructions: '1. Boil pasta. 2. Sauté garlic and chili in oil. 3. Toss pasta with oil and fresh parsley.',
-      calories: 350, time: 15, imagePath: 'assets/images/light_pasta.jpg', isFavorite: false,
+      calories: 350,
+      time: 15,
+      imagePath: 'assets/images/light_pasta.png',
+      isFavorite: false,
     ),
     Recipe(
       id: 52,
@@ -495,7 +532,10 @@ abstract class RecipeRepository {
       category: 'Dinner',
       ingredients: 'Chicken breast, Carrots, Broth, Bread, Butter',
       instructions: '1. Boil chicken and carrots in broth. 2. Toast bread with butter. 3. Serve soup hot with toast.',
-      calories: 290, time: 30, imagePath: 'assets/images/chicken_soup.jpg', isFavorite: false,
+      calories: 290,
+      time: 30,
+      imagePath: 'assets/images/chicken_soup.png',
+      isFavorite: false,
     ),
     Recipe(
       id: 53,
@@ -503,7 +543,10 @@ abstract class RecipeRepository {
       category: 'Dinner',
       ingredients: 'Chicken wings, BBQ sauce, Honey, Garlic powder',
       instructions: '1. Bake or fry wings until crispy. 2. Toss in BBQ sauce mixture. 3. Serve with ranch dip.',
-      calories: 520, time: 35, imagePath: 'assets/images/wings.jpg', isFavorite: false,
+      calories: 520,
+      time: 35,
+      imagePath: 'assets/images/wings.png',
+      isFavorite: false,
     ),
     Recipe(
       id: 54,
@@ -511,14 +554,12 @@ abstract class RecipeRepository {
       category: 'Dinner',
       ingredients: 'Beef cubes, Butter, Garlic, Rosemary',
       instructions: '1. Sear beef cubes in a hot pan. 2. Add butter, garlic, and rosemary. 3. Cook to desired doneness.',
-      calories: 480, time: 15, imagePath: 'assets/images/steak_bites.jpg', isFavorite: false,
+      calories: 480,
+      time: 15,
+      imagePath: 'assets/images/steak_bites.png',
+      isFavorite: false,
     ),
-  ];
-
-  // ==========================================
   // 4. SALADS (السلطات - 8 وصفات)
-  // ==========================================
-
   Recipe(
   id: 55,
   title: 'Fattoush 🥗',
@@ -527,7 +568,7 @@ abstract class RecipeRepository {
   instructions: '1. Chop all vegetables into medium chunks. 2. For the dressing, mix olive oil, lemon juice, sumac, and pomegranate molasses. 3. Toss the vegetables with the dressing and top with crispy toasted bread before serving.',
   calories: 160,
   time: 15,
-  imagePath: 'assets/images/fattoush.jpg',
+  imagePath: 'assets/images/fattoush.png',
   isFavorite: false,
   ),
   Recipe(
@@ -538,7 +579,7 @@ abstract class RecipeRepository {
   instructions: '1. Soak bulgur in lemon juice. 2. Finely chop the parsley, tomatoes, and onion. 3. Mix all ingredients together with olive oil and salt; serve chilled.',
   calories: 180,
   time: 25,
-  imagePath: 'assets/images/tabbouleh.jpg',
+  imagePath: 'assets/images/tabbouleh.png',
   isFavorite: false,
   ),
   Recipe(
@@ -549,7 +590,7 @@ abstract class RecipeRepository {
   instructions: '1. Slice cucumbers, tomatoes, and onions. 2. Combine in a bowl with olives. 3. Top with a large cube of feta cheese, sprinkle oregano, and drizzle with olive oil and lemon.',
   calories: 210,
   time: 10,
-  imagePath: 'assets/images/greek_salad.jpg',
+  imagePath: 'assets/images/greek_salad.png',
   isFavorite: false,
   ),
   Recipe(
@@ -560,7 +601,7 @@ abstract class RecipeRepository {
   instructions: '1. Tear the lettuce into large pieces. 2. Toss with Caesar dressing and half of the parmesan cheese. 3. Top with crunchy croutons and the remaining cheese shavings.',
   calories: 320,
   time: 15,
-  imagePath: 'assets/images/caesar.jpg',
+  imagePath: 'assets/images/caesar.png',
   isFavorite: false,
   ),
   Recipe(
@@ -571,7 +612,7 @@ abstract class RecipeRepository {
   instructions: '1. Flake the tuna in a bowl. 2. Add finely chopped celery, onion, and corn. 3. Mix with mayonnaise, lemon juice, and pepper until well combined.',
   calories: 290,
   time: 10,
-  imagePath: 'assets/images/tuna_salad.jpg',
+  imagePath: 'assets/images/tuna_salad.png',
   isFavorite: false,
   ),
   Recipe(
@@ -582,7 +623,7 @@ abstract class RecipeRepository {
   instructions: '1. Peel and cube the boiled potatoes. 2. Add chopped green onions and parsley. 3. Mix with a dressing of mayonnaise and mustard (or oil and lemon) and season with salt.',
   calories: 350,
   time: 20,
-  imagePath: 'assets/images/potato_salad.jpg',
+  imagePath: 'assets/images/potato_salad.png',
   isFavorite: false,
   ),
   Recipe(
@@ -593,7 +634,7 @@ abstract class RecipeRepository {
   instructions: '1. Boil the pasta and let it cool. 2. Mix with chopped peppers, olives, corn, and tomatoes. 3. Pour the Italian dressing over the mixture and toss well.',
   calories: 410,
   time: 20,
-  imagePath: 'assets/images/pasta_salad.jpg',
+  imagePath: 'assets/images/pasta_salad.png',
   isFavorite: false,
   ),
   Recipe(
@@ -604,13 +645,10 @@ abstract class RecipeRepository {
   instructions: '1. Shred the cabbage and grate the carrots. 2. In a small bowl, whisk mayonnaise, sugar, and vinegar. 3. Mix the dressing with the vegetables and refrigerate for at least 30 minutes before serving.',
   calories: 150,
   time: 15,
-  imagePath: 'assets/images/coleslaw.jpg',
+  imagePath: 'assets/images/coleslaw.png',
   isFavorite: false,
   ),
-  // ==========================================
   // 5. APPETIZERS (المقبلات - 8 وصفات)
-  // ==========================================
-
   Recipe(
   id: 63,
   title: 'Creamy Hummus 🥣',
@@ -619,7 +657,7 @@ abstract class RecipeRepository {
   instructions: '1. Blend chickpeas and garlic in a food processor with an ice cube until smooth. 2. Add tahini and lemon juice while blending. 3. Serve in a shallow bowl topped with a generous amount of olive oil.',
   calories: 250,
   time: 15,
-  imagePath: 'assets/images/hummus.jpg',
+  imagePath: 'assets/images/creamy_hummus.png',
   isFavorite: false,
   ),
   Recipe(
@@ -630,7 +668,7 @@ abstract class RecipeRepository {
   instructions: '1. Roast the eggplants until soft, then peel and mash the flesh. 2. Mix with tahini, lemon juice, and minced garlic. 3. Garnish with olive oil and pomegranate seeds.',
   calories: 180,
   time: 35,
-  imagePath: 'assets/images/baba_ganoush.jpg',
+  imagePath: 'assets/images/baba_ganoush.png',
   isFavorite: false,
   ),
   Recipe(
@@ -639,9 +677,9 @@ abstract class RecipeRepository {
   category: 'Appetizers',
   ingredients: 'Sambousek dough sheets, 250g Minced meat (or Cheese), 1 Onion, Spices (Pine nuts optional)',
   instructions: '1. Sauté onions and meat with spices until cooked. 2. Place a spoonful of filling on the dough and fold into triangles. 3. Deep fry in hot oil until golden brown.',
-  calories: 120, // per piece approx
+  calories: 120,
   time: 30,
-  imagePath: 'assets/images/sambousek.jpg',
+  imagePath: 'assets/images/sambousek.png',
   isFavorite: false,
   ),
   Recipe(
@@ -652,7 +690,7 @@ abstract class RecipeRepository {
   instructions: '1. Cut potatoes into thick wedges. 2. Toss with oil and all the spices in a bowl. 3. Bake in the oven or air fryer at 200°C for 25-30 mins until crispy.',
   calories: 210,
   time: 30,
-  imagePath: 'assets/images/wedges.jpg',
+  imagePath: 'assets/images/wedges.png',
   isFavorite: false,
   ),
   Recipe(
@@ -663,7 +701,7 @@ abstract class RecipeRepository {
   instructions: '1. Dip cheese sticks in flour, then beaten egg, then breadcrumbs mixed with herbs. 2. Freeze for 30 mins (crucial step). 3. Fry quickly in very hot oil until golden.',
   calories: 380,
   time: 45,
-  imagePath: 'assets/images/mozzarella_sticks.jpg',
+  imagePath: 'assets/images/mozzarella_sticks.png',
   isFavorite: false,
   ),
   Recipe(
@@ -672,9 +710,9 @@ abstract class RecipeRepository {
   category: 'Appetizers',
   ingredients: '500g Fine bulgur, 500g Minced meat (for crust & filling), 1 Onion, Cinnamon, Allspice, Pine nuts',
   instructions: '1. Make the dough by blending bulgur with meat and onion. 2. Prepare the filling by sautéing meat with spices and nuts. 3. Shape the dough into oval shells, stuff them, and deep fry until dark golden.',
-  calories: 150, // per piece approx
+  calories: 150,
   time: 60,
-  imagePath: 'assets/images/kibbeh.jpg',
+  imagePath: 'assets/images/kibbeh.png',
   isFavorite: false,
   ),
   Recipe(
@@ -685,7 +723,7 @@ abstract class RecipeRepository {
   instructions: '1. Stuff vine leaves with a mixture of rice and finely chopped vegetables. 2. Slow cook in a pot with a liquid made of water, lemon, and molasses. 3. Serve cold as a refreshing appetizer.',
   calories: 220,
   time: 120,
-  imagePath: 'assets/images/yalanji.jpg',
+  imagePath: 'assets/images/yalanji.png',
   isFavorite: false,
   ),
   Recipe(
@@ -696,14 +734,10 @@ abstract class RecipeRepository {
   instructions: '1. Peel and cut potatoes into thin sticks. 2. Soak in cold water for 15 mins then dry well. 3. Fry in hot oil until crispy and sprinkle with salt immediately.',
   calories: 310,
   time: 20,
-  imagePath: 'assets/images/french_fries.jpg',
+  imagePath: 'assets/images/french_fries.png',
   isFavorite: false,
   ),
-  // ==========================================
   // 6. DESSERTS (الحلويات الشرقية والغربية - 10 وصفات)
-  // ==========================================
-
-  // --- حلويات شرقية ---
   Recipe(
   id: 71,
   title: 'Cheese Kunafa 🧀',
@@ -712,7 +746,7 @@ abstract class RecipeRepository {
   instructions: '1. Shred the kunafa pastry and mix with melted butter. 2. Spread half in a tray, add a thick layer of desalted cheese, then cover with the rest of the pastry. 3. Bake until golden, pour cold syrup over it while hot, and garnish with pistachios.',
   calories: 450,
   time: 40,
-  imagePath: 'assets/images/kunafa.jpg',
+  imagePath: 'assets/images/kunafa.png',
   isFavorite: false,
   ),
   Recipe(
@@ -723,7 +757,7 @@ abstract class RecipeRepository {
   instructions: '1. Layer phyllo sheets in a tray, brushing each with ghee. 2. Add a thick layer of nuts in the middle. 3. Top with more layers, cut into diamonds, bake until crispy, and soak in syrup.',
   calories: 380,
   time: 50,
-  imagePath: 'assets/images/baklava.jpg',
+  imagePath: 'assets/images/baklava.png',
   isFavorite: false,
   ),
   Recipe(
@@ -734,7 +768,7 @@ abstract class RecipeRepository {
   instructions: '1. Mix semolina, yogurt, sugar, butter, and baking powder. 2. Spread in a tray, garnish with almonds, and let it rest for 30 mins. 3. Bake until edges are brown, then broil the top and pour hot syrup.',
   calories: 320,
   time: 45,
-  imagePath: 'assets/images/harissa.jpg',
+  imagePath: 'assets/images/harissa.png',
   isFavorite: false,
   ),
   Recipe(
@@ -745,7 +779,7 @@ abstract class RecipeRepository {
   instructions: '1. Mix semolina and ghee and leave overnight. 2. Knead with flour and rose water. 3. Stuff with date paste, press into molds, and bake until slightly pale golden.',
   calories: 250,
   time: 60,
-  imagePath: 'assets/images/maamoul.jpg',
+  imagePath: 'assets/images/maamoul.png',
   isFavorite: false,
   ),
   Recipe(
@@ -756,12 +790,10 @@ abstract class RecipeRepository {
   instructions: '1. Stuff the circles with cheese or nuts and seal the edges tightly. 2. Fry in hot oil or brush with butter and bake. 3. Dip immediately in cold sugar syrup and serve.',
   calories: 290,
   time: 30,
-  imagePath: 'assets/images/qatayef.jpg',
+  imagePath: 'assets/images/qatayef.png',
   isFavorite: false,
   ),
-
-  // --- حلويات غربية ---
-  Recipe(
+    Recipe(
   id: 76,
   title: 'New York Cheesecake 🍰',
   category: 'Desserts',
@@ -769,7 +801,7 @@ abstract class RecipeRepository {
   instructions: '1. Crush biscuits and mix with butter for the base. 2. Beat cream cheese, sugar, eggs, and vanilla; pour over the base. 3. Bake in a water bath at 160°C for 60 mins, then refrigerate for 6 hours.',
   calories: 410,
   time: 90,
-  imagePath: 'assets/images/cheesecake.jpg',
+  imagePath: 'assets/images/cheesecake.png',
   isFavorite: false,
   ),
   Recipe(
@@ -780,7 +812,7 @@ abstract class RecipeRepository {
   instructions: '1. Dip ladyfingers quickly in coffee and layer them. 2. Mix mascarpone with egg yolks and sugar, then fold in whipped egg whites. 3. Spread cream over biscuits, repeat layers, and dust with cocoa.',
   calories: 320,
   time: 30,
-  imagePath: 'assets/images/tiramisu.jpg',
+  imagePath: 'assets/images/tiramisu.png',
   isFavorite: false,
   ),
   Recipe(
@@ -791,7 +823,7 @@ abstract class RecipeRepository {
   instructions: '1. Melt chocolate and butter together. 2. Whisk eggs and sugar, then stir in the chocolate. 3. Fold in flour and cocoa, bake at 180°C for 20-25 mins for a fudgy center.',
   calories: 280,
   time: 35,
-  imagePath: 'assets/images/brownies.jpg',
+  imagePath: 'assets/images/brownies.png',
   isFavorite: false,
   ),
   Recipe(
@@ -802,7 +834,7 @@ abstract class RecipeRepository {
   instructions: '1. Knead dough and let it rise for an hour. 2. Cut into rings and let rise again for 30 mins. 3. Fry in oil until golden and dip in sugar glaze.',
   calories: 240,
   time: 120,
-  imagePath: 'assets/images/donuts.jpg',
+  imagePath: 'assets/images/donuts.png',
   isFavorite: false,
   ),
   Recipe(
@@ -813,21 +845,20 @@ abstract class RecipeRepository {
   instructions: '1. Cream butter and sugar, then add egg and vanilla. 2. Fold in flour and chocolate chips. 3. Scoop onto a tray and bake at 180°C for 10-12 mins.',
   calories: 190,
   time: 25,
-  imagePath: 'assets/images/cookies.jpg',
+  imagePath: 'assets/images/cookies.png',
   isFavorite: false,
   ),
-  // ==========================================
   // 7. DRINKS (المشروبات الباردة والساخنة - 15 وصفة)
-  // ==========================================
-
-  // --- مشروبات باردة ---
-  Recipe(
+    Recipe(
   id: 81,
   title: 'Mint Lemonade 🍋',
   category: 'Drinks',
   ingredients: '3 Lemons, Fresh mint leaves, 4 tbsp Sugar, 2 cups Water, Ice cubes',
   instructions: '1. Peel lemons and remove seeds. 2. Blend lemon, mint, sugar, and water together. 3. Strain and serve in a glass with plenty of ice.',
-  calories: 120, time: 5, imagePath: 'assets/images/mint_lemonade.jpg', isFavorite: false,
+  calories: 120,
+      time: 5,
+      imagePath: 'assets/images/mint_lemonade.png',
+      isFavorite: false,
   ),
   Recipe(
   id: 82,
@@ -835,7 +866,10 @@ abstract class RecipeRepository {
   category: 'Drinks',
   ingredients: '2 scoops Chocolate ice cream, 1 cup Cold milk, 1 tbsp Chocolate syrup, Whipped cream',
   instructions: '1. Place ice cream, milk, and syrup in a blender. 2. Blend until smooth and thick. 3. Pour into a glass and top with whipped cream and more syrup.',
-  calories: 450, time: 5, imagePath: 'assets/images/choco_shake.jpg', isFavorite: false,
+  calories: 450,
+    time: 5,
+    imagePath: 'assets/images/choco_shake.png',
+    isFavorite: false,
   ),
   Recipe(
   id: 83,
@@ -843,7 +877,10 @@ abstract class RecipeRepository {
   category: 'Drinks',
   ingredients: '1 cup Frozen strawberries, 1/2 cup Yogurt, 1/2 cup Milk, 1 tbsp Honey',
   instructions: '1. Combine all ingredients in a blender. 2. Blend on high speed until creamy. 3. Serve immediately in a chilled glass.',
-  calories: 180, time: 5, imagePath: 'assets/images/strawberry_smoothie.jpg', isFavorite: false,
+  calories: 180,
+    time: 5,
+    imagePath: 'assets/images/strawberry_smoothie.png',
+    isFavorite: false,
   ),
   Recipe(
   id: 84,
@@ -851,7 +888,10 @@ abstract class RecipeRepository {
   category: 'Drinks',
   ingredients: 'Double shot Espresso (or strong coffee), 1 cup Milk, 1 tbsp Caramel or Vanilla syrup, Ice',
   instructions: '1. Fill a glass with ice cubes. 2. Pour in the syrup and milk. 3. Top with the espresso and stir gently.',
-  calories: 150, time: 5, imagePath: 'assets/images/iced_coffee.jpg', isFavorite: false,
+  calories: 150,
+    time: 5,
+    imagePath: 'assets/images/iced_coffee.png',
+    isFavorite: false,
   ),
   Recipe(
   id: 85,
@@ -859,7 +899,10 @@ abstract class RecipeRepository {
   category: 'Drinks',
   ingredients: '2 ripe Mangoes, 1/2 cup Water, 1 tbsp Sugar (optional), Ice',
   instructions: '1. Peel and chop mangoes. 2. Blend with water and sugar until smooth. 3. Serve cold over ice.',
-  calories: 160, time: 7, imagePath: 'assets/images/mango_juice.jpg', isFavorite: false,
+  calories: 160,
+    time: 7,
+    imagePath: 'assets/images/mango_juice.png',
+    isFavorite: false,
   ),
   Recipe(
   id: 86,
@@ -867,7 +910,10 @@ abstract class RecipeRepository {
   category: 'Drinks',
   ingredients: '4-5 fresh Oranges',
   instructions: '1. Cut oranges in half. 2. Squeeze using a manual or electric juicer. 3. Serve fresh immediately to retain vitamins.',
-  calories: 110, time: 5, imagePath: 'assets/images/orange_juice.jpg', isFavorite: false,
+  calories: 110,
+    time: 5,
+    imagePath: 'assets/images/orange_juice.png',
+    isFavorite: false,
   ),
   Recipe(
   id: 87,
@@ -875,7 +921,10 @@ abstract class RecipeRepository {
   category: 'Drinks',
   ingredients: '1 ripe Avocado, 1.5 cups Milk, 2 tbsp Honey, 3-4 Almonds',
   instructions: '1. Scoop out avocado flesh. 2. Blend with milk and honey until very creamy. 3. Garnish with crushed almonds and a drizzle of honey.',
-  calories: 320, time: 5, imagePath: 'assets/images/avocado_shake.jpg', isFavorite: false,
+  calories: 320,
+    time: 5,
+    imagePath: 'assets/images/avocado_shake.png',
+    isFavorite: false,
   ),
   Recipe(
   id: 88,
@@ -883,17 +932,21 @@ abstract class RecipeRepository {
   category: 'Drinks',
   ingredients: 'Fresh mint, 1/2 Lime (sliced), 1 tbsp Sugar, Soda water, Ice',
   instructions: '1. Muddle mint, lime, and sugar in a glass. 2. Fill with crushed ice. 3. Top with soda water and stir.',
-  calories: 90, time: 5, imagePath: 'assets/images/mojito.jpg', isFavorite: false,
+  calories: 90,
+    time: 5,
+    imagePath: 'assets/images/mojito.png',
+    isFavorite: false,
   ),
-
-  // --- مشروبات ساخنة ---
-  Recipe(
+    Recipe(
   id: 89,
   title: 'Arabic Coffee ☕',
   category: 'Drinks',
   ingredients: '3 tbsp Ground Arabic coffee, 1 tbsp Cardamom, 3 cups Water, Saffron (optional)',
   instructions: '1. Boil water in a Dallah. 2. Add coffee and simmer for 15 mins. 3. Add cardamom and saffron, let it settle, then pour.',
-  calories: 5, time: 20, imagePath: 'assets/images/arabic_coffee.jpg', isFavorite: false,
+  calories: 5,
+      time: 20,
+      imagePath: 'assets/images/arabic_coffee.png',
+      isFavorite: false,
   ),
   Recipe(
   id: 90,
@@ -901,7 +954,10 @@ abstract class RecipeRepository {
   category: 'Drinks',
   ingredients: 'Espresso shot, 1/2 cup Milk, Cocoa powder',
   instructions: '1. Prepare espresso in a cup. 2. Froth the milk until thick and foamy. 3. Pour milk over espresso and top with a sprinkle of cocoa.',
-  calories: 120, time: 10, imagePath: 'assets/images/cappuccino.jpg', isFavorite: false,
+  calories: 120,
+    time: 10,
+    imagePath: 'assets/images/cappuccino.png',
+    isFavorite: false,
   ),
   Recipe(
   id: 91,
@@ -909,7 +965,10 @@ abstract class RecipeRepository {
   category: 'Drinks',
   ingredients: 'Espresso shot, 1 cup Steamed milk, thin layer of Foam',
   instructions: '1. Pour espresso into a large mug. 2. Add steamed milk slowly. 3. Top with a very light layer of foam.',
-  calories: 150, time: 8, imagePath: 'assets/images/latte.jpg', isFavorite: false,
+  calories: 150,
+    time: 8,
+    imagePath: 'assets/images/latte.png',
+    isFavorite: false,
   ),
   Recipe(
   id: 92,
@@ -917,7 +976,10 @@ abstract class RecipeRepository {
   category: 'Drinks',
   ingredients: 'Tea bag or loose leaves, Water, Sugar or Mint (optional)',
   instructions: '1. Boil water. 2. Steep tea for 3-5 mins depending on desired strength. 3. Add sugar or fresh mint as preferred.',
-  calories: 2, time: 5, imagePath: 'assets/images/tea.jpg', isFavorite: false,
+  calories: 2,
+    time: 5,
+    imagePath: 'assets/images/tea.png',
+    isFavorite: false,
   ),
   Recipe(
   id: 93,
@@ -925,7 +987,10 @@ abstract class RecipeRepository {
   category: 'Drinks',
   ingredients: 'Black tea, Evaporated milk, Cardamom, Cloves, Saffron, Sugar',
   instructions: '1. Boil tea with spices and sugar for 5 mins. 2. Add evaporated milk and bring to a boil again. 3. Simmer on low heat for 10 mins until rich in color.',
-  calories: 180, time: 15, imagePath: 'assets/images/karak.jpg', isFavorite: false,
+  calories: 180,
+    time: 15,
+    imagePath: 'assets/images/karak.png',
+    isFavorite: false,
   ),
   Recipe(
   id: 94,
@@ -933,7 +998,10 @@ abstract class RecipeRepository {
   category: 'Drinks',
   ingredients: '1 cup Milk, 2 tbsp Cocoa powder, 1 tbsp Sugar, Marshmallows',
   instructions: '1. Heat milk in a small pot. 2. Whisk in cocoa and sugar until dissolved. 3. Pour into a mug and top with marshmallows.',
-  calories: 250, time: 7, imagePath: 'assets/images/hot_chocolate.jpg', isFavorite: false,
+  calories: 250,
+    time: 7,
+    imagePath: 'assets/images/hot_chocolate.png',
+    isFavorite: false,
   ),
   Recipe(
   id: 95,
@@ -941,104 +1009,105 @@ abstract class RecipeRepository {
   category: 'Drinks',
   ingredients: '1 cup Milk, 1 Cinnamon stick, 1/2 tsp Ground cinnamon, 1 tbsp Honey',
   instructions: '1. Warm milk with the cinnamon stick. 2. Stir in honey and ground cinnamon. 3. Serve hot, perfect for cold nights.',
-  calories: 160, time: 10, imagePath: 'assets/images/cinnamon_milk.jpg', isFavorite: false,
+  calories: 160,
+    time: 10,
+    imagePath: 'assets/images/cinnamon_milk.png',
+    isFavorite: false,
   ),
-
-  // ==========================================
-  // 8. DIET MEALS (أكلات دايت - 8 وصفات)
-  // ==========================================
-
+    // 8. DIET MEALS (أكلات دايت - 8 وصفات)
   Recipe(
   id: 96,
   title: 'Grilled Chicken Salad 🥗',
-  category: 'Diet',
+  category: 'Healthy',
   ingredients: '150g Chicken breast, Lettuce, Cucumber, Cherry tomatoes, 1 tbsp Olive oil, Lemon, Oregano',
   instructions: '1. Season chicken with oregano and grill until cooked, then slice into strips. 2. Chop all vegetables and place in a bowl. 3. Mix lemon juice and olive oil for the dressing, then toss everything together.',
   calories: 280,
   time: 20,
-  imagePath: 'assets/images/diet_chicken_salad.jpg',
+  imagePath: 'assets/images/diet_chicken_salad.png',
   isFavorite: false,
   ),
   Recipe(
   id: 97,
   title: 'Oats with Fruits 🥣',
-  category: 'Diet',
+  category: 'Healthy',
   ingredients: '1/2 cup Rolled oats, 1 cup Skimmed milk, 1 tsp Honey, Sliced strawberries, Blueberries, Cinnamon',
   instructions: '1. Cook oats with milk on medium heat until thickened. 2. Pour into a bowl and stir in honey and cinnamon. 3. Top with fresh berries and serve warm.',
   calories: 250,
   time: 10,
-  imagePath: 'assets/images/oatmeal.jpg',
+  imagePath: 'assets/images/oatmeal.png',
   isFavorite: false,
   ),
   Recipe(
   id: 98,
   title: 'Salmon with Veggies 🐟',
-  category: 'Diet',
+  category: 'Healthy',
   ingredients: '200g Salmon fillet, Asparagus, Carrots, Lemon slices, Black pepper, 1 tsp Olive oil',
   instructions: '1. Place salmon and vegetables on a baking tray. 2. Drizzle with olive oil and season with pepper and lemon juice. 3. Bake at 200°C for 15-18 minutes until the salmon is flaky.',
   calories: 380,
   time: 25,
-  imagePath: 'assets/images/salmon_diet.jpg',
+  imagePath: 'assets/images/salmon_diet.png',
   isFavorite: false,
   ),
   Recipe(
   id: 99,
   title: 'Quinoa Salad 🥗',
-  category: 'Diet',
+  category: 'Healthy',
   ingredients: '1/2 cup Cooked quinoa, Parsley, Red bell pepper, Cucumber, Chickpeas, Lemon, 1 tsp Olive oil',
   instructions: '1. Combine cooled quinoa with chopped vegetables and chickpeas. 2. Whisk olive oil and lemon juice together. 3. Toss the salad with the dressing and chill before serving.',
   calories: 220,
   time: 15,
-  imagePath: 'assets/images/quinoa_salad.jpg',
+  imagePath: 'assets/images/quinoa_salad.png',
   isFavorite: false,
   ),
   Recipe(
   id: 100,
   title: 'Healthy Avocado Toast 🥑',
-  category: 'Diet',
+  category: 'Healthy',
   ingredients: '1 slice Whole-grain bread, 1/2 Avocado, 1 Boiled egg, Red pepper flakes, Lemon juice',
   instructions: '1. Toast the whole-grain bread. 2. Mash avocado with a squeeze of lemon and spread on toast. 3. Top with slices of boiled egg and a pinch of red pepper flakes.',
   calories: 290,
   time: 8,
-  imagePath: 'assets/images/diet_avocado.jpg',
+  imagePath: 'assets/images/diet_avocado.png',
   isFavorite: false,
   ),
   Recipe(
   id: 101,
   title: 'Greek Yogurt with Honey 🍯',
-  category: 'Diet',
+  category: 'Healthy',
   ingredients: '1 cup Greek yogurt (low fat), 1 tbsp Raw honey, 5 Raw almonds, Dash of Cinnamon',
   instructions: '1. Place the yogurt in a bowl. 2. Drizzle with honey and sprinkle with cinnamon. 3. Add crushed almonds on top for a healthy crunch.',
   calories: 190,
   time: 5,
-  imagePath: 'assets/images/yogurt_honey.jpg',
+  imagePath: 'assets/images/yogurt_honey.png',
   isFavorite: false,
   ),
   Recipe(
   id: 102,
   title: 'Grilled Chicken with Broccoli 🥦',
-  category: 'Diet',
+  category: 'Healthy',
   ingredients: '150g Chicken breast, 2 cups Broccoli florets, 1 clove Garlic, Lemon, Salt, Pepper',
   instructions: '1. Grill the seasoned chicken until golden and cooked. 2. Steam the broccoli for 5 minutes, then sauté quickly with garlic. 3. Serve the chicken alongside the broccoli with a squeeze of lemon.',
   calories: 310,
   time: 25,
-  imagePath: 'assets/images/chicken_broccoli.jpg',
+  imagePath: 'assets/images/chicken_broccoli.png',
   isFavorite: false,
   ),
   Recipe(
   id: 103,
   title: 'Vegetable Soup 🥣',
-  category: 'Diet',
+  category: 'Healthy',
   ingredients: 'Zucchini, Carrots, Celery, Green beans, Onion, Vegetable broth, Herbs',
   instructions: '1. Sauté onions, then add chopped vegetables. 2. Pour in the vegetable broth and bring to a boil. 3. Simmer for 20 minutes until veggies are tender; garnish with fresh herbs.',
   calories: 150,
   time: 30,
-  imagePath: 'assets/images/veg_soup.jpg',
+  imagePath: 'assets/images/veg_soup.png',
   isFavorite: false,
   ),
   ];
 
+  static List<Recipe> get allRecipes => _allRecipes;
+
   static List<Recipe> getFavoriteRecipes() {
-  return allRecipes.where((r) => r.isFavorite).toList();
+    return _allRecipes.where((r) => r.isFavorite).toList();
   }
 }
