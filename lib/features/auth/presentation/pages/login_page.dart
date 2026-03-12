@@ -18,7 +18,7 @@ class LoginPage extends StatelessWidget {
               children: [
                 const SizedBox(height: 80),
                 const Text(
-                  "Welcome to Rashify ✨",
+                  "Welcome to Rashify ",
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,

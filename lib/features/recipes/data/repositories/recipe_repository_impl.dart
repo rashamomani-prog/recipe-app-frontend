@@ -1,43 +1,31 @@
-import '../models/recipe_model.dart';
+import '../../domain/entities/category_entity.dart';
+import '../../domain/entities/recipe_entity.dart';
+import '../../domain/repositories/recipe_repository.dart';
+import '../datasources/recipe_local_data_source.dart';
+import 'package:flutter/material.dart';
 
-class RecipeRepository {
-  static final List<Recipe> allRecipes = [
-    // --- Breakfast ---
-    Recipe(
-      id: 1,
-      title: 'Avocado Toast 🥑',
-      category: 'Breakfast',
-      ingredients: '1 slice bread, 1/2 avocado, egg...',
-      instructions: '1. Toast bread. 2. Mash avocado...',
-      calories: 320,
-      time: 5,
-      imagePath: 'assets/images/avocado.jpg',
-      isFavorite: false,
-    ),
-    Recipe(
-      id: 2,
-      title: 'Yogurt Fruit Bowl 🍯',
-      category: 'Breakfast',
-      ingredients: 'Yogurt, Fruits, Honey...',
-      instructions: '1. Place yogurt. 2. Add fruits...',
-      calories: 180,
-      time: 3,
-      imagePath: 'assets/images/yogurt_bowl.jpg',
-      isFavorite: false,
-    ),
-    Recipe(
-      id: 4,
-      title: 'Jordanian Mansaf 🍖',
-      category: 'Lunch',
-      ingredients: 'Lamb, Jameed, Rice...',
-      instructions: '1. Cook meat in jameed...',
-      calories: 920,
-      time: 75,
-      imagePath: 'assets/images/mansaf.jpg',
-      isFavorite: false,
-    ),
-  ];
-  static List<Recipe> getFavoriteRecipes() {
-    return allRecipes.where((r) => r.isFavorite).toList();
+class RecipeRepositoryImpl implements RecipeRepository {
+  final RecipeLocalDataSource localDataSource;
+
+  RecipeRepositoryImpl({required this.localDataSource});
+
+  @override
+  Future<List<CategoryEntity>> getCategories() async {
+    return [
+      CategoryEntity(id: '1', title: 'Breakfast', icon: Icons.breakfast_dining, accentColor: Colors.orange),
+      CategoryEntity(id: '2', title: 'Lunch', icon: Icons.lunch_dining, accentColor: Colors.red),
+      CategoryEntity(id: '3', title: 'Dinner', icon: Icons.dinner_dining, accentColor: Colors.blue),
+      CategoryEntity(id: '4', title: 'Salads', icon: Icons.flatware, accentColor: Colors.green),
+      CategoryEntity(id: '5', title: 'Appetizers', icon: Icons.tapas, accentColor: Colors.brown),
+      CategoryEntity(id: '6', title: 'Desserts', icon: Icons.icecream_outlined, accentColor: Colors.pink),
+      CategoryEntity(id: '7', title: 'Drinks', icon: Icons.local_cafe, accentColor: Colors.cyan),
+      CategoryEntity(id: '8', title: 'Healthy', icon: Icons.health_and_safety, accentColor: Colors.teal),
+      CategoryEntity(id: '9', title: 'My Recipes', icon: Icons.person_pin, accentColor: Colors.purple),
+    ];
+  }
+
+  @override
+  Future<void> addRecipe(RecipeEntity recipe) async {
+    await localDataSource.addRecipe(recipe);
   }
 }

@@ -42,6 +42,24 @@ class CategoryRepositoryImpl implements CategoryRepository {
         icon: Icons.spa_outlined,
         accentColor: const Color(0xFFE0F2F1),
       ),
+      CategoryEntity(
+        id: '7',
+        title: 'Appetizers',
+        icon: Icons.fastfood_outlined,
+        accentColor: const Color(0xFFF3E5F5),
+      ),
+      CategoryEntity(
+        id: '8',
+        title: 'Salads',
+        icon: Icons.eco_outlined,
+        accentColor: const Color(0xFFE8F5E9),
+      ),
+      CategoryEntity(
+        id: '9',
+        title: 'My Recipes',
+        icon: Icons.menu_book_outlined,
+        accentColor: const Color(0xFFFFFDE7),
+      ),
     ];
   }
 }

@@ -8,6 +8,7 @@ class Recipe {
   final int time;
   final String imagePath;
   bool isFavorite;
+  final String? userId;
   Recipe({
     required this.id,
     required this.title,
@@ -18,6 +19,7 @@ class Recipe {
     required this.time,
     required this.imagePath,
     this.isFavorite = false,
+    this.userId,
   });
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
@@ -29,7 +31,23 @@ class Recipe {
       category: json['category'] ?? '',
       calories: json['calories'] ?? 0,
       time: json['time'] ?? 0,
-      imagePath: json['image_path'] ?? 'assets/images/placeholder.png',
+      imagePath: json['image_path'] ?? '',
+      isFavorite: json['isFavorite'] ?? false,
+      userId: json['userId'],
     );
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'category': category,
+      'ingredients': ingredients,
+      'instructions': instructions,
+      'calories': calories,
+      'time': time,
+      'imagePath': imagePath,
+      'isFavorite': isFavorite,
+      'userId': userId,
+    };
   }
 }

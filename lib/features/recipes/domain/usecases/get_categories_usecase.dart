@@ -1,8 +1,8 @@
 import '../entities/category_entity.dart';
-import '../repositories/category_repository.dart';
+import '../repositories/recipe_repository.dart';
 
 class GetCategories {
-  final CategoryRepository repository;
+  final RecipeRepository repository;
 
   GetCategories(this.repository);
 

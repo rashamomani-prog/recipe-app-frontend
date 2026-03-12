@@ -13,7 +13,6 @@ class RecipeDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // تحويل البيانات لضمان التعامل معها كقائمة
     final List<String> ingredientsList = recipe.ingredients.split(',');
     final List<String> instructionsList = recipe.instructions.split('.');
 
@@ -41,11 +40,8 @@ class RecipeDetailsPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // العنوان
                   Text(recipe.title, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 15),
-
-                  // شريط المعلومات
                   Row(
                     children: [
                       _infoChip("${recipe.calories} kcal", Icons.local_fire_department, Colors.orange),
@@ -55,16 +51,12 @@ class RecipeDetailsPage extends StatelessWidget {
                   ),
 
                   const Divider(height: 40, thickness: 1),
-
-                  // المكونات
                   const Text("Ingredients", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 15),
                   for (var item in ingredientsList)
                     if (item.trim().isNotEmpty) _buildIngredientRow(item.trim()),
 
                   const SizedBox(height: 35),
-
-                  // الخطوات
                   const Text("Preparation Steps", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 20),
 

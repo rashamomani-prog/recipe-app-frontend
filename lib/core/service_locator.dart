@@ -2,6 +2,7 @@ import '../features/auth/data/datasources/auth_remote_data_source.dart';
 import '../features/auth/presentation/cubit/auth_cubit.dart';
 import '../features/recipes/data/repositories/category_repository_impl.dart';
 import '../features/recipes/domain/repositories/category_repository.dart';
+import '../features/recipes/domain/usecases/add_recipe_usecase.dart';
 import '../features/recipes/domain/usecases/get_categories_usecase.dart';
 import 'auth_local_service.dart';
 import 'dio_client.dart';
@@ -21,10 +22,10 @@ Future<void> init() async {
 
 // Repositories
   sl.registerLazySingleton<CategoryRepository>(() => CategoryRepositoryImpl());
-  // UseCases
-  sl.registerLazySingleton(() => GetCategories(sl()));
-  // Cubits
-  sl.registerFactory(() => RecipeCubit(sl<GetCategories>()));
+  // UseCase
+  sl.registerLazySingleton(() => AddRecipeUseCase(sl()));
+//cubit
+  sl.registerFactory(() => RecipeCubit(sl<GetCategories>(), sl<AddRecipeUseCase>()));
 // Core
   sl.registerLazySingleton(() => AuthLocalService());
 
