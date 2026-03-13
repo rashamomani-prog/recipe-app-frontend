@@ -60,7 +60,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 20),
 
                 const Text(
-                  "Join Rashify ✨",
+                  "Join Rashify ",
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,

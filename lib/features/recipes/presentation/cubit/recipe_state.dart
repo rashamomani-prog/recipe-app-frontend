@@ -15,3 +15,11 @@ class RecipeError extends RecipeState {
   final String message;
   RecipeError(this.message);
 }
+// أضيفي هاد الكلاس تحت الـ RecipeState
+class RecipeAISuccess extends RecipeState {
+  final String recommendation;
+  RecipeAISuccess(this.recommendation);
+
+  @override
+  List<Object> get props => [recommendation];
+}

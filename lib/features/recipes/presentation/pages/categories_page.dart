@@ -15,13 +15,11 @@ class CategoriesPage extends StatelessWidget {
     CategoriesEntity(title: 'Breakfast', icon: Icons.coffee_outlined, accentColor: const Color(0xFFFFFBEE)),
     CategoriesEntity(title: 'Lunch', icon: Icons.restaurant_outlined, accentColor: const Color(0xFFFFEFFE)),
     CategoriesEntity(title: 'Dinner', icon: Icons.nightlight_outlined, accentColor: const Color(0xFFF0F9FF)),
-    // الأقسام الجديدة مضافة هنا بنفس طريقتك
     CategoriesEntity(title: 'Salads', icon: Icons.flatware_outlined, accentColor: const Color(0xFFE8F5E9)),
     CategoriesEntity(title: 'Appetizers', icon: Icons.tapas_outlined, accentColor: const Color(0xFFEFEBE9)),
     CategoriesEntity(title: 'Desserts', icon: Icons.cake_outlined, accentColor: const Color(0xFFF2FCE2)),
     CategoriesEntity(title: 'Drinks', icon: Icons.local_drink_outlined, accentColor: const Color(0xFFFFF3E0)),
     CategoriesEntity(title: 'Healthy', icon: Icons.spa_outlined, accentColor: const Color(0xFFE0F2F1)),
-    // قسم وصفات المستخدم
     CategoriesEntity(title: 'My Recipes', icon: Icons.person_pin_outlined, accentColor: const Color(0xFFF3E5F5)),
   ];
 

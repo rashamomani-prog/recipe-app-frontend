@@ -26,10 +26,7 @@ class RashifyApp extends StatefulWidget {
 }
 
 class _RashifyAppState extends State<RashifyApp> {
-  // الحالة الافتراضية للثيم
   ThemeMode _themeMode = ThemeMode.light;
-
-  // دالة لتغيير الثيم رح نمررها لصفحة اللوجن
   void _toggleTheme(bool isDark) {
     setState(() {
       _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;

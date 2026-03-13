@@ -1,3 +1,5 @@
+import 'package:rashify_app/features/recipes/data/datasources/recipe_remote_data_source.dart';
+
 import '../../domain/entities/category_entity.dart';
 import '../../domain/entities/recipe_entity.dart';
 import '../../domain/repositories/recipe_repository.dart';
@@ -7,7 +9,7 @@ import '../../data/models/recipe_model.dart';
 class RecipeRepositoryImpl implements RecipeRepository {
   final RecipeLocalDataSource localDataSource;
 
-  RecipeRepositoryImpl({required this.localDataSource});
+  RecipeRepositoryImpl({required this.localDataSource, required RecipeRemoteDataSource remoteDataSource});
 
   @override
   Future<List<CategoryEntity>> getCategories() async {
@@ -27,5 +29,9 @@ class RecipeRepositoryImpl implements RecipeRepository {
   @override
   Future<void> addRecipe(RecipeEntity recipe) async {
     await localDataSource.addRecipe(recipe);
+  }
+  @override
+  Future<String> getAIRecommendation(String query) async {
+    return "AI recommendation for $query";
   }
 }

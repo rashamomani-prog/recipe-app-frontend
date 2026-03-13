@@ -17,7 +17,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  // متغير لمتابعة حالة الثيم داخل الصفحة
   bool isDarkMode = false;
 
   void loginUser() async {
@@ -70,7 +69,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    // استخدمنا Theme.of(context) عشان نعرف الألوان الحالية ونعدلها تلقائياً
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return WillPopScope(
@@ -89,7 +87,6 @@ class _LoginPageState extends State<LoginPage> {
         return exit;
       },
       child: Scaffold(
-        // الخلفية الآن تتغير حسب الثيم
         backgroundColor: isDark ? const Color(0xFF121212) : const Color(0xFFFAF9F6),
         body: SafeArea(
           child: SingleChildScrollView(
@@ -99,7 +96,6 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 40),
-                  // أضفنا صف يحتوي على زر التبديل للـ Dark Mode
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -209,7 +205,7 @@ class _LoginPageState extends State<LoginPage> {
         controller: controller,
         obscureText: isPassword,
         textAlign: TextAlign.left,
-        style: TextStyle(color: isDark ? Colors.white : Colors.black87), // لون النص داخل الحقل
+        style: TextStyle(color: isDark ? Colors.white : Colors.black87),
         decoration: InputDecoration(
           prefixIcon: Icon(icon, color: Colors.orange.shade300, size: 22),
           hintText: hint,

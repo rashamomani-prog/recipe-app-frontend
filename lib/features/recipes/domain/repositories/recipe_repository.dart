@@ -5,6 +5,7 @@ import '../entities/recipe_entity.dart';
 abstract class RecipeRepository {
   Future<List<CategoryEntity>> getCategories();
   Future<void> addRecipe(RecipeEntity recipe);
+  Future<String> getAIRecommendation(String prompt);
   static final List<Recipe>_allRecipes = [
     // 1. BREAKFAST (الفطور الشرقي والغربي)
     Recipe(
