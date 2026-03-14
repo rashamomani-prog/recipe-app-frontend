@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   final recipeRepo = di.sl<RecipeRepository>();
-/
+
   @override
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
