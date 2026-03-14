@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../../../services/ai_service.dart';
-import '../../../auth/presentation/pages/recipe_details_page.dart';
-import '../../data/repositories/recipe_repository_impl.dart';
-import '../../../recipes/data/models/recipe_model.dart';
+import '../../../../core/service_locator.dart' as di;
+import 'recipe_details_page.dart';
+import '../../data/models/recipe_model.dart';
 import '../../domain/repositories/recipe_repository.dart';
-import '../../../auth/presentation/pages/recipe_details_page.dart';
+import '../../../../services/ai_service.dart';
+
 class FindByIngredientsPage extends StatefulWidget {
   final Color themeColor;
   const FindByIngredientsPage({super.key, required this.themeColor});
@@ -17,33 +17,37 @@ class _FindByIngredientsPageState extends State<FindByIngredientsPage> {
   final TextEditingController _controller = TextEditingController();
   List<Recipe> _results = [];
   bool _loading = false;
+  String? _error;
 
-  void _searchRecipes() async {
-    final input = _controller.text.toLowerCase().trim();
+  Future<void> _searchRecipes() async {
+    final input = _controller.text.trim();
     if (input.isEmpty) return;
 
     setState(() {
       _loading = true;
       _results = [];
+      _error = null;
     });
 
-    // البحث المحلي أولاً
-    final localMatches = RecipeRepository.allRecipes.where((r) {
-      return input.split(',').every(
-              (ingredient) => r.ingredients.toLowerCase().contains(ingredient.trim()));
-    }).toList();
-
-    // لو ما في نتائج، نستخدم AI
-    if (localMatches.isEmpty) {
-      // هنا تستدعي AIService مع المكونات
-      final aiResults = await AIService.findRecipesByIngredients(input); // ترجع List<Recipe>
+    try {
+      final repo = di.sl<RecipeRepository>();
+      List<Recipe> list;
+      if (input.contains(',') || !input.contains(' ')) {
+        list = await repo.searchByIngredients(input);
+      } else {
+        list = await repo.searchByQuery(input);
+      }
+      if (list.isEmpty) {
+        final aiList = await AIService.findRecipesByIngredients(input);
+        list = aiList;
+      }
       setState(() {
-        _results = aiResults;
+        _results = list;
         _loading = false;
       });
-    } else {
+    } catch (e) {
       setState(() {
-        _results = localMatches;
+        _error = e.toString().replaceFirst('Exception: ', '');
         _loading = false;
       });
     }
@@ -63,32 +67,45 @@ class _FindByIngredientsPageState extends State<FindByIngredientsPage> {
             TextField(
               controller: _controller,
               decoration: InputDecoration(
-                labelText: 'Enter ingredients separated by comma',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
+                labelText: 'Enter ingredients separated by comma, or a search query',
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
               ),
+              onSubmitted: (_) => _searchRecipes(),
             ),
             const SizedBox(height: 15),
             ElevatedButton(
-              onPressed: _searchRecipes,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: widget.themeColor,
-              ),
+              onPressed: _loading ? null : _searchRecipes,
+              style: ElevatedButton.styleFrom(backgroundColor: widget.themeColor),
               child: const Text('Search Recipes'),
             ),
             const SizedBox(height: 20),
-            if (_loading) const CircularProgressIndicator(),
+            if (_error != null)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: Text(_error!, style: const TextStyle(color: Colors.red)),
+              ),
+            if (_loading) const Expanded(child: Center(child: CircularProgressIndicator())),
             if (!_loading)
               Expanded(
                 child: ListView.builder(
                   itemCount: _results.length,
                   itemBuilder: (context, index) {
                     final recipe = _results[index];
+                    final useNetwork = recipe.imageUrl != null &&
+                        recipe.imageUrl!.isNotEmpty &&
+                        recipe.imageUrl!.startsWith('http');
                     return ListTile(
-                      leading: Image.asset(recipe.imagePath, width: 50, height: 50, fit: BoxFit.cover),
+                      leading: useNetwork
+                          ? Image.network(
+                              recipe.imageUrl!,
+                              width: 50,
+                              height: 50,
+                              fit: BoxFit.cover,
+                              errorBuilder: (_, __, ___) => _placeholder(50),
+                            )
+                          : _placeholder(50),
                       title: Text(recipe.title),
-                      subtitle: Text('${recipe.calories} kcal | ${recipe.time} mins'),
+                      subtitle: recipe.category != null ? Text(recipe.category!) : null,
                       onTap: () {
                         Navigator.push(
                           context,
@@ -104,6 +121,15 @@ class _FindByIngredientsPageState extends State<FindByIngredientsPage> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _placeholder(double size) {
+    return Container(
+      width: size,
+      height: size,
+      color: Colors.grey[300],
+      child: Icon(Icons.restaurant, color: Colors.grey[500]),
     );
   }
 }

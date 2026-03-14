@@ -1,4 +1,3 @@
-import '../../data/models/recipe_model.dart';
 import '../../domain/entities/recipe_entity.dart';
 
 abstract class RecipeLocalDataSource {

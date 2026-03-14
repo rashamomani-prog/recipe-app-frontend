@@ -30,19 +30,21 @@ class RecipeCubit extends Cubit<RecipeState> {
   Future<void> addRecipe(RecipeEntity recipe) async {
     try {
       await addRecipeUseCase(recipe);
+      emit(RecipeAddSuccess());
       await fetchRecipes();
     } catch (e) {
-      emit(RecipeError("Failed to add recipe: $e"));
+      final msg = e is Exception ? e.toString().replaceFirst('Exception: ', '') : e.toString();
+      emit(RecipeError(msg.isEmpty ? 'Failed to add recipe' : msg));
     }
   }
 
   Future<void> askAI(String question) async {
     emit(RecipeLoading());
     try {
-      final result = await recipeRepository.getAIRecommendation(question);
-      emit(RecipeAISuccess(result)); // هسا رح تشتغل بس نعدل ملف الـ State
+      final recipes = await recipeRepository.getAIRecommendation(question);
+      emit(RecipeAISuccess(recipes));
     } catch (e) {
-      emit(RecipeError("AI Chef is busy!"));
+      emit(RecipeError(e.toString().replaceFirst('Exception: ', '')));
     }
   }
 }

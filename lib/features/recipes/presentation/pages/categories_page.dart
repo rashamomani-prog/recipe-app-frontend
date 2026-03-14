@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../auth/presentation/cubit/auth_cubit.dart';
+import '../../../auth/presentation/cubit/auth_state.dart';
+import 'add_recipe_page.dart';
 import 'recipe_list_page.dart';
 
 class CategoriesEntity {
@@ -25,15 +29,31 @@ class CategoriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFFAF9F6),
-      appBar: AppBar(
-        title: const Text("All Categories", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
-      ),
-      body: GridView.builder(
+    return BlocBuilder<AuthCubit, AuthState>(
+      builder: (context, authState) {
+        final user = authState is AuthSuccess ? authState.user : null;
+        final isAdmin = user?.role?.toLowerCase() == 'admin';
+
+        return Scaffold(
+          backgroundColor: const Color(0xFFFAF9F6),
+          appBar: AppBar(
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text("All Categories", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                if (user != null)
+                  Text(
+                    '${user.name}${isAdmin ? ' · Admin' : ' · User'}',
+                    style: TextStyle(color: Colors.black54, fontSize: 12, fontWeight: FontWeight.normal),
+                  ),
+              ],
+            ),
+            backgroundColor: Colors.white,
+            elevation: 0,
+            iconTheme: const IconThemeData(color: Colors.black),
+          ),
+          body: GridView.builder(
         padding: const EdgeInsets.all(20),
         physics: const BouncingScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -63,6 +83,23 @@ class CategoriesPage extends StatelessWidget {
           );
         },
       ),
+          floatingActionButton: isAdmin
+              ? FloatingActionButton.extended(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const AddRecipePage()),
+                    );
+                  },
+                  icon: const Icon(Icons.add_circle_outline, size: 26),
+                  label: const Text('Add Recipe', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                  backgroundColor: Colors.orange,
+                  foregroundColor: Colors.white,
+                  elevation: 6,
+                )
+              : null,
+        );
+      },
     );
   }
 

@@ -1,3 +1,4 @@
+import '../../data/models/recipe_model.dart';
 import '../../domain/entities/category_entity.dart';
 
 abstract class RecipeState {}
@@ -6,8 +7,7 @@ class RecipeInitial extends RecipeState {}
 class RecipeLoading extends RecipeState {}
 
 class RecipeLoaded extends RecipeState {
-  final List<dynamic> result;
-
+  final List<CategoryEntity> result;
   RecipeLoaded(this.result);
 }
 
@@ -15,11 +15,10 @@ class RecipeError extends RecipeState {
   final String message;
   RecipeError(this.message);
 }
-// أضيفي هاد الكلاس تحت الـ RecipeState
-class RecipeAISuccess extends RecipeState {
-  final String recommendation;
-  RecipeAISuccess(this.recommendation);
 
-  @override
-  List<Object> get props => [recommendation];
+class RecipeAISuccess extends RecipeState {
+  final List<Recipe> recipes;
+  RecipeAISuccess(this.recipes);
 }
+
+class RecipeAddSuccess extends RecipeState {}

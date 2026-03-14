@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../data/repositories/recipe_repository_impl.dart';
-import '../../../auth/presentation/pages/recipe_details_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/service_locator.dart' as di;
+import '../../../auth/presentation/cubit/auth_cubit.dart';
 import '../../../auth/presentation/pages/login_page.dart';
-import '../../../recipes/data/models/recipe_model.dart';
+import 'recipe_details_page.dart';
+import '../../data/models/recipe_model.dart';
 import '../../domain/repositories/recipe_repository.dart';
 
 class RecipeListPage extends StatefulWidget {
@@ -16,12 +18,38 @@ class RecipeListPage extends StatefulWidget {
 }
 
 class _RecipeListPageState extends State<RecipeListPage> {
+  List<Recipe> _recipes = [];
+  bool _loading = true;
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadRecipes();
+  }
+
+  Future<void> _loadRecipes() async {
+    setState(() {
+      _loading = true;
+      _error = null;
+    });
+    try {
+      final repo = di.sl<RecipeRepository>();
+      final list = await repo.getRecipes(category: widget.categoryName);
+      setState(() {
+        _recipes = list;
+        _loading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _error = e.toString().replaceFirst('Exception: ', '');
+        _loading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final List<Recipe> filteredRecipes = RecipeRepository.allRecipes
-        .where((r) => r.category.toLowerCase() == widget.categoryName.toLowerCase())
-        .toList();
-
     return Scaffold(
       backgroundColor: const Color(0xFFFAF9F6),
       appBar: AppBar(
@@ -33,54 +61,73 @@ class _RecipeListPageState extends State<RecipeListPage> {
         elevation: 0,
         iconTheme: IconThemeData(color: widget.themeColor),
         actions: [
-          // Logout button مع تأكيد
           IconButton(
             icon: Icon(Icons.logout, color: widget.themeColor),
             onPressed: () {
               showDialog(
                 context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: const Text("Logout"),
-                    content: const Text("Are you sure you want to logout?"),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: const Text("Cancel"),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(builder: (context) => LoginPage()),
-                                (route) => false,
-                          );
-                        },
-                        child: const Text("Logout"),
-                      ),
-                    ],
-                  );
-                },
+                builder: (ctx) => AlertDialog(
+                  title: const Text("Logout"),
+                  content: const Text("Are you sure you want to logout?"),
+                  actions: [
+                    TextButton(onPressed: () => Navigator.pop(ctx), child: const Text("Cancel")),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(ctx);
+                        context.read<AuthCubit>().logout();
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginPage()),
+                          (route) => false,
+                        );
+                      },
+                      child: const Text("Logout"),
+                    ),
+                  ],
+                ),
               );
             },
           ),
         ],
       ),
-      body: filteredRecipes.isEmpty
-          ? _buildEmptyState()
-          : ListView.builder(
-        padding: const EdgeInsets.all(20),
-        physics: const BouncingScrollPhysics(),
-        itemCount: filteredRecipes.length,
-        itemBuilder: (context, index) {
-          final recipe = filteredRecipes[index];
-          return _buildRecipeCard(context, recipe);
-        },
-      ),
+      body: _loading
+          ? const Center(child: CircularProgressIndicator(color: Colors.orange))
+          : _error != null
+              ? Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(_error!, textAlign: TextAlign.center, style: const TextStyle(color: Colors.red)),
+                        const SizedBox(height: 16),
+                        TextButton.icon(
+                          onPressed: _loadRecipes,
+                          icon: const Icon(Icons.refresh),
+                          label: const Text("Retry"),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              : _recipes.isEmpty
+                  ? _buildEmptyState()
+                  : RefreshIndicator(
+                      onRefresh: _loadRecipes,
+                      child: ListView.builder(
+                        padding: const EdgeInsets.all(20),
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: _recipes.length,
+                        itemBuilder: (context, index) => _buildRecipeCard(context, _recipes[index]),
+                      ),
+                    ),
     );
   }
 
   Widget _buildRecipeCard(BuildContext context, Recipe recipe) {
+    final imagePath = recipe.imageUrl;
+    final useNetwork = imagePath != null && imagePath.isNotEmpty && imagePath.startsWith('http');
+
     return Container(
       margin: const EdgeInsets.only(bottom: 25),
       decoration: BoxDecoration(
@@ -99,52 +146,24 @@ class _RecipeListPageState extends State<RecipeListPage> {
         children: [
           Stack(
             children: [
-              // الصورة مع Hero animation
               GestureDetector(
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => RecipeDetailsPage(
-                      recipe: recipe,
-                      themeColor: widget.themeColor,
-                    ),
+                    builder: (context) => RecipeDetailsPage(recipe: recipe, themeColor: widget.themeColor),
                   ),
                 ),
                 child: ClipRRect(
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
-                  child: Hero(
-                    tag: recipe.imagePath, // tag فريد لكل وصفة
-                    child: Image.asset(
-                      recipe.imagePath,
-                      height: 200,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-              // أيقونة الفافوريت
-              Positioned(
-                top: 15,
-                right: 15,
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      recipe.isFavorite = !recipe.isFavorite;
-                    });
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.9),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      recipe.isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: recipe.isFavorite ? Colors.red : Colors.grey,
-                      size: 20,
-                    ),
-                  ),
+                      child: useNetwork
+                      ? Image.network(
+                          imagePath,
+                          height: 200,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => _placeholderImage(),
+                        )
+                      : _placeholderImage(),
                 ),
               ),
             ],
@@ -158,19 +177,24 @@ class _RecipeListPageState extends State<RecipeListPage> {
                   recipe.title,
                   style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    _infoTag("${recipe.calories} kcal", Icons.local_fire_department_rounded),
-                    const SizedBox(width: 15),
-                    _infoTag("${recipe.time} mins", Icons.access_time_rounded),
-                  ],
-                ),
+                if (recipe.category != null && recipe.category!.isNotEmpty) ...[
+                  const SizedBox(height: 12),
+                  _infoTag(recipe.category!, Icons.category_outlined),
+                ],
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _placeholderImage() {
+    return Container(
+      height: 200,
+      width: double.infinity,
+      color: Colors.grey.shade200,
+      child: Icon(Icons.restaurant, size: 64, color: Colors.grey.shade400),
     );
   }
 

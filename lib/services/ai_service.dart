@@ -1,27 +1,36 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+import '../core/api_config.dart';
 import '../features/recipes/data/models/recipe_model.dart';
 
 class AIService {
-  static Future<List<Recipe>> findRecipesByIngredients(String ingredients) async {
+  final Dio _dio = Dio(BaseOptions(
+    baseUrl: kBaseUrl,
+    connectTimeout: const Duration(seconds: 15),
+    receiveTimeout: const Duration(seconds: 15),
+    contentType: 'application/json',
+  ));
+
+  /// POST /ai/predict — natural language recipe recommendations
+  Future<List<Recipe>> predict(String text) async {
     try {
-      final url = Uri.parse('http://192.168.1.XX:8000/ai/predict');
-
-      final response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'text': ingredients}),
+      final response = await _dio.post<List>(
+        '/ai/predict',
+        data: {'text': text},
       );
-
-      if (response.statusCode == 200) {
-        List<dynamic> data = jsonDecode(response.body);
-        return data.map((json) => Recipe.fromJson(json)).toList();
-      } else {
-        throw Exception('Failed to load suggestions');
+      final list = response.data;
+      if (list == null) return [];
+      return list.map((e) => Recipe.fromJson(e as Map<String, dynamic>)).toList();
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 404) {
+        throw Exception(e.response?.data?['detail'] ?? 'No recipes found.');
       }
-    } catch (e) {
-      print("AI Error: $e");
-      return [];
+      throw Exception(e.response?.data?['detail'] ?? e.message ?? 'AI suggestion failed');
     }
+  }
+
+  /// Alias for backward compatibility
+  static Future<List<Recipe>> findRecipesByIngredients(String ingredientsOrQuery) async {
+    final service = AIService();
+    return service.predict(ingredientsOrQuery);
   }
 }
