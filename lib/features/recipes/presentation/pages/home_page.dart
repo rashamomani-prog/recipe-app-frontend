@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart'; // أضفت هذا الـ import
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/service_locator.dart' as di;
 import '../../domain/repositories/recipe_repository.dart';
-import '../cubit/recipe_cubit.dart'; // تأكدي من مسار الـ Cubit عندك
-import '../cubit/recipe_state.dart'; // تأكدي من مسار الـ State عندك
+import '../cubit/recipe_cubit.dart';
+import '../cubit/recipe_state.dart';
 import 'categories_page.dart';
 import 'recipe_list_page.dart';
 
@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   final recipeRepo = di.sl<RecipeRepository>();
-
+/
   @override
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
